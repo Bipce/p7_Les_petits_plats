@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700&display=swap');
+
+:root {
+    --primary-color: #FFD15B;
+    --secondary-color: #1B1B1B;
+    --tertiary-color: #7A7A7A;
+    --bg-color: #EDEDED;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+    line-height: 2;
+}
+
+body {
+    background-color: var(--bg-color);
+    max-width: 1440px;
+}
