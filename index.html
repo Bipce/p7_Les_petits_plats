@@ -2,9 +2,57 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="css/styles.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Les Petits Plats</title>
 </head>
+
 <body>
+<header class="header">
+  <h1 class="header__title"><img src="assets/Logo.png" alt="logo"></h1>
+
+  <div class="header__content">
+    <p class="header__content__text">Cherchez parmi plus de 1500 recettes du quotidien, simples, et délicieuses</p>
+    <div class="header__content__searchbar__box">
+      <label for="searchbar"></label>
+      <input type="text" class="header__content__searchbar__box__searchbar" name="searchbar" id="searchbar"
+             placeholder="Rechercher une recette, un ingrédient, ..."
+             aria-label="Marquer la recette que vous rechercher"
+      >
+      <button class="header__content__searchbar__box__btn"><i
+        class="fa-solid fa-magnifying-glass header__content__searchbar__box__btn__icon"></i></button>
+    </div>
+  </div>
+</header>
+
+<nav class="menu">
+  <div class="menu__selects">
+    <div>
+      <label for="ingredients"></label>
+      <select id="ingredients" class="menu__select">
+        <option value="title">Ingrédients</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="devices"></label>
+      <select id="devices" class="menu__select">
+        <option value="title">Appareils</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="utensils"></label>
+      <select id="utensils" class="menu__select">
+        <option value="title">Ustensiles</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="menu__recipes">1500 recettes</p>
+</nav>
 </body>
 </html>

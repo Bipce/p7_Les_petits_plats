@@ -1,0 +1,54 @@
+.header {
+    background: url("../assets/header__image__bg.png") no-repeat;
+    height: 667px;
+}
+
+.header__title {
+    padding: 4rem;
+}
+
+.header__content {
+    text-align: center;
+}
+
+.header__content__text {
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    font-size: 2.75rem;
+    margin: 5rem 23rem 2rem;
+    font-family: "Anton", sans-serif;
+}
+
+.header__content__searchbar__box {
+    width: 66%;
+    margin-inline: auto;
+    border-radius: 11px;
+}
+
+.header__content__searchbar__box,
+.header__content__searchbar__box__searchbar {
+    background-color: #fff;
+}
+
+.header__content__searchbar__box__searchbar {
+    outline: none;
+    border: none;
+    height: 72px;
+    font-size: 1.125rem;
+    width: 92%;
+    color: var(--tertiary-color);
+    padding-inline: 1.8rem;
+}
+
+.header__content__searchbar__box__btn__icon {
+    color: #fff;
+}
+
+.header__content__searchbar__box__btn {
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 10px;
+    font-size: var(--fz16px);
+    padding: 0.8rem 1rem;
+}

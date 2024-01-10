@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700&display=swap');
+@import "header.css";
+@import "menu.css";
 
 :root {
     --primary-color: #FFD15B;
     --secondary-color: #1B1B1B;
     --tertiary-color: #7A7A7A;
     --bg-color: #EDEDED;
+
+    --fz16px: 1.25rem
 }
 
 *,
@@ -16,10 +20,11 @@
 
 * {
     box-sizing: border-box;
-    line-height: 2;
+    font-family: "Manrope", sans-serif;
 }
 
 body {
-    background-color: var(--bg-color);
     max-width: 1440px;
+    background-color: var(--bg-color);
+    margin-inline: auto;
 }
