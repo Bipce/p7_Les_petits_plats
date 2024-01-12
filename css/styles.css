@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700&display=swap');
+@import "recipeArticle.css";
 @import "header.css";
 @import "menu.css";
 
@@ -8,7 +9,8 @@
     --tertiary-color: #7A7A7A;
     --bg-color: #EDEDED;
 
-    --fz16px: 1.25rem
+    --fz16px: 1rem;
+    --fz18px: 1.125rem;
 }
 
 *,
@@ -24,7 +26,19 @@
 }
 
 body {
-    max-width: 1440px;
     background-color: var(--bg-color);
     margin-inline: auto;
+}
+
+img {
+    object-fit: cover;
+}
+
+.title {
+    color: var(--tertiary-color);
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: .6rem;
 }

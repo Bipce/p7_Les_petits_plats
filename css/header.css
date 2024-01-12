@@ -1,5 +1,6 @@
 .header {
-    background: url("../assets/header__image__bg.png") no-repeat;
+    background: url("../assets/header__image__bg.png") center no-repeat;
+    background-size: cover;
     height: 667px;
 }
 
@@ -16,12 +17,12 @@
     text-transform: uppercase;
     color: var(--primary-color);
     font-size: 2.75rem;
-    margin: 5rem 23rem 2rem;
+    margin: 5rem 38rem 2rem;
     font-family: "Anton", sans-serif;
 }
 
 .header__content__searchbar__box {
-    width: 66%;
+    width: 55%;
     margin-inline: auto;
     border-radius: 11px;
 }
@@ -35,7 +36,7 @@
     outline: none;
     border: none;
     height: 72px;
-    font-size: 1.125rem;
+    font-size: var(--fz18px);
     width: 92%;
     color: var(--tertiary-color);
     padding-inline: 1.8rem;
@@ -49,6 +50,6 @@
     background-color: var(--secondary-color);
     border: none;
     border-radius: 10px;
-    font-size: var(--fz16px);
+    font-size: var(--fz18px);
     padding: 0.8rem 1rem;
 }
