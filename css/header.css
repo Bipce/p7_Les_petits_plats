@@ -17,13 +17,14 @@
     text-transform: uppercase;
     color: var(--primary-color);
     font-size: 2.75rem;
-    margin: 5rem 38rem 2rem;
+    margin: 5rem auto 2rem;
     font-family: "Anton", sans-serif;
+    max-width: 32ch;
 }
 
 .header__content__searchbar__box {
-    width: 55%;
     margin-inline: auto;
+    max-width: 954px;
     border-radius: 11px;
 }
 

@@ -23,6 +23,11 @@
 * {
     box-sizing: border-box;
     font-family: "Manrope", sans-serif;
+    scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
 }
 
 body {
@@ -41,4 +46,8 @@ img {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: .6rem;
+}
+
+.main-wrapper {
+    padding-inline: 5rem;
 }

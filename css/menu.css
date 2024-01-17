@@ -1,12 +1,10 @@
 .menu {
     display: flex;
-    padding-inline: 5rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     align-items: center;
 }
 
 .menu__selects {
-    width: 90%;
     display: flex;
     gap: 5rem;
 }
@@ -25,5 +23,6 @@
 .menu__recipes {
     color: var(--secondary-color);
     font-family: "Anton", sans-serif;
-    font-size: 1.31rem
+    font-size: 1.31rem;
+    margin-left: auto;
 }

@@ -28,67 +28,38 @@
   </div>
 </header>
 
-<nav class="menu">
-  <div class="menu__selects">
-    <div>
-      <label for="ingredients"></label>
-      <select id="ingredients" class="menu__select">
-        <option value="title">Ingrédients</option>
-      </select>
-    </div>
-
-    <div>
-      <label for="devices"></label>
-      <select id="devices" class="menu__select">
-        <option value="title">Appareils</option>
-      </select>
-    </div>
-
-    <div>
-      <label for="utensils"></label>
-      <select id="utensils" class="menu__select">
-        <option value="title">Ustensiles</option>
-      </select>
-    </div>
-  </div>
-
-  <p class="menu__recipes">1500 recettes</p>
-</nav>
-
-<section id="recipes" class="recipes">
-  <article class="recipes__article">
-    <img src="assets/images_recettes/Recette01.jpg" alt="photo" class="recipes__article__img">
-
-    <div class="recipes__article__content">
-      <h2 class="recipes__article__content__name">Limonade de Coco</h2>
+<main class="main-wrapper">
+  <nav class="menu">
+    <div class="menu__selects">
       <div>
-        <h3 class="title">recette</h3>
-        <p class="recipes__article__content__description">Mettre les glaçons à votre goût dans le blender, Ajouter le
-          lait la crème de coco, le jus de 2 citrons et le sucre ensemble. Mixer jusqu'à obtenir la consistance
-          désirée.</p>
+        <label for="ingredients"></label>
+        <select id="ingredients" class="menu__select">
+          <option value="title">Ingrédients</option>
+        </select>
       </div>
 
+      <div>
+        <label for="devices"></label>
+        <select id="devices" class="menu__select">
+          <option value="title">Appareils</option>
+        </select>
+      </div>
 
-      <div class="recipes__article__content__ingredients">
-        <h3 class="title">ingrédients</h3>
-        <div class="recipes__article__content__ingredients__box">
-          <div class="recipes__article__content__ingredients__box__ingredient">
-            <p class="recipes__article__content__ingredients__box__ingredient__name">Lait de coco</p>
-            <p class="recipes__article__content__ingredients__box__ingredient__quantity">400ml</p>
-          </div>
-          <div class="recipes__article__content__ingredients__box__ingredient">
-            <p class="recipes__article__content__ingredients__box__ingredient__name">jus de citron</p>
-            <p class="recipes__article__content__ingredients__box__ingredient__quantity">2</p>
-          </div>
-          <div class="recipes__article__content__ingredients__box__ingredient">
-            <p class="recipes__article__content__ingredients__box__ingredient__name">creme de coco</p>
-            <p class="recipes__article__content__ingredients__box__ingredient__quantity">4 cuillieres</p>
-          </div>
-        </div>
+      <div>
+        <label for="utensils"></label>
+        <select id="utensils" class="menu__select">
+          <option value="title">Ustensiles</option>
+        </select>
       </div>
     </div>
-  </article>
-</section>
+
+    <p id="number-recipes" class="menu__recipes"></p>
+  </nav>
+
+  <section id="recipes" class="recipes">
+  </section>
+</main>
+
 
 <script src="scripts/templates/Recipe.js" type="module"></script>
 <script src="scripts/utils/services.js" type="module"></script>
