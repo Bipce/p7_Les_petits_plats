@@ -21,10 +21,10 @@ export class Ingredient {
     }
 
     return (`
-       <div class="recipes__article__content__ingredients__box__ingredient">
-         <p class="recipes__article__content__ingredients__box__ingredient__name">${this.ingredient}</p>
-         <div class="recipes__article__content__ingredients__box__ingredient__details">${data}</div>
-     </div>
+      <div class="recipes__article__content__ingredients__box__ingredient">
+        <p class="recipes__article__content__ingredients__box__ingredient__name">${this.ingredient}</p>
+        <div class="recipes__article__content__ingredients__box__ingredient__details">${data}</div>
+      </div>
     `);
   }
 }
