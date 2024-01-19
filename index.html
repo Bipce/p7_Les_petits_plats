@@ -32,18 +32,31 @@
   <nav class="menu">
     <div class="menu__selects">
       <div class="menu__selects__select" id="ingredients-tag" isOpen="false">
-        <p>Ingrédients <i class="fa-solid fa-chevron-down menu__selects__select__icon"></i></p>
-        <label for="ingredients"></label>
-        <input type="text" name="ingredients" id="ingredients" class="menu__selects__select__input">
-        <div id="tag-ingredients">
+        <h2 class="menu__selects__select__title">Ingrédients
+          <img class="menu__selects__select__title__icon" src="assets/tag__icon.png" alt="Ouvrir liste">
+        </h2>
+
+        <div class="menu__selects__select__input">
+          <label for="ingredients"></label>
+          <input type="text" name="ingredients" id="ingredients" class="menu__selects__select__input__search" />
+          <img src="assets/input__icon.png" alt="Icon rechercher" class="menu__selects__select__input__search__icon">
+        </div>
+        <div id="tag-ingredients" class="menu__selects__select__ingredients">
         </div>
       </div>
 
-      <div>
-        <label for="devices"></label>
-        <select id="devices" class="menu__selects__select">
-          <option value="title">Appareils</option>
-        </select>
+      <div class="menu__selects__select" id="devices-tag" isOpen="false">
+        <h2 class="menu__selects__select__title">Appareils
+          <img class="menu__selects__select__title__icon" src="assets/tag__icon.png" alt="Ouvrir liste">
+        </h2>
+
+        <div class="menu__selects__select__input">
+          <label for="devices"></label>
+          <input type="text" name="devices" id="devices" class="menu__selects__select__input__search" />
+          <img src="assets/input__icon.png" alt="Icon rechercher" class="menu__selects__select__input__search__icon">
+        </div>
+        <div id="tag-devices" class="menu__selects__select__ingredients">
+        </div>
       </div>
 
       <div>

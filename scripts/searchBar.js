@@ -1,11 +1,11 @@
 import { recipes } from "../data/recipes.js";
-import { displayRecipes } from "./index.js";
+import { displayIngredientsTag, displayRecipes } from "./index.js";
 
 const searchBar = document.getElementById("searchbar");
 
 const search = (e) => {
   const userSearch = e.target.value.toLowerCase();
-  let filteredRecipes = [];
+  const filteredRecipes = [];
 
   for (let i = 0; i < recipes.length; i++) {
     if (recipes[i].name.toLowerCase().includes(userSearch)
@@ -22,6 +22,7 @@ const search = (e) => {
   }
 
   displayRecipes(filteredRecipes);
+  displayIngredientsTag(filteredRecipes);
 };
 
 searchBar.addEventListener("input", (e) => {

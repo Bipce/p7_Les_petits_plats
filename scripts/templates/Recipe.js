@@ -12,6 +12,12 @@ export class Recipe {
   }
 
   getRecipesDOMPage() {
+    let ingredients = "";
+
+    for (const ingredient of this.ingredients) {
+      ingredients += this.getIngredientRecipeDOMPage(ingredient);
+    }
+
     return (`
       <article class="recipes__article">
         <img src="assets/images_recettes/${this.image}" alt="${this.name}" class="recipes__article__img">
@@ -26,12 +32,37 @@ export class Recipe {
           </div>
           
           <div class="recipes__article__content__ingredients">
-          <h3 class="title">ingrédients</h3>
+            <h3 class="title">ingrédients</h3>
           
-          <div class="recipes__article__content__ingredients__box"></div>
-        </div> 
+            <div class="recipes__article__content__ingredients__box">
+              ${ingredients}
+            </div>
+          </div> 
         </div>
       </article>
+    `);
+  }
+
+  getIngredientRecipeDOMPage(ingredient) {
+    let data = "";
+
+    if (ingredient.quantity) {
+      data += `<p>${ingredient.quantity}</p>`;
+    }
+
+    if (ingredient.unit) {
+      data += `<p>${ingredient.unit}</p>`;
+    }
+
+    if (!ingredient.quantity && !ingredient.unit) {
+      data += `<p>-</p>`;
+    }
+
+    return (`
+      <div class="recipes__article__content__ingredients__box__ingredient">
+        <p class="recipes__article__content__ingredients__box__ingredient__name">${ingredient.ingredient}</p>
+        <div class="recipes__article__content__ingredients__box__ingredient__details">${data}</div>
+      </div>
     `);
   }
 }
