@@ -1,17 +1,29 @@
-import { displayIngredientsTag } from "./index.js";
+import { displayAppliancesTag, displayIngredientsTag, displayUtensilsTag } from "./index.js";
 import { recipes } from "../data/recipes.js";
 
 const ingredientTag = document.getElementById("ingredients-tag");
+const appliancesTag = document.getElementById("appliances-tag");
+const utensilsTag = document.getElementById("utensils-tag");
 
-const openTag = () => {
-  if (ingredientTag.getAttribute("isOpen") === "false") {
-    ingredientTag.setAttribute("isOpen", "true");
+const setAttributes = (nameTag) => {
+  if (nameTag.getAttribute("isOpen") === "false") {
+    nameTag.setAttribute("isOpen", "true");
   } else {
-    ingredientTag.setAttribute("isOpen", "false");
+    nameTag.setAttribute("isOpen", "false");
   }
 };
 
-ingredientTag.addEventListener("click", () => {
-  openTag();
-  displayIngredientsTag(recipes);
-});
+const openTag = (nameTag) => {
+  setAttributes(nameTag);
+};
+
+const addEventListenerToTag = (nameTag, displayFunc) => {
+  nameTag.addEventListener("click", () => {
+    openTag(nameTag);
+    displayFunc(recipes);
+  });
+};
+
+addEventListenerToTag(ingredientTag, displayIngredientsTag);
+addEventListenerToTag(appliancesTag, displayAppliancesTag);
+addEventListenerToTag(utensilsTag, displayUtensilsTag);

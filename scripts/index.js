@@ -15,24 +15,49 @@ export const displayRecipes = (data) => {
   }
 };
 
-export const displayIngredientsTag = (dataRecipes) => {
-  const tagIngredients = document.getElementById("tag-ingredients");
-  let ingredients = new Set();
+const displayItemTag = (nameTag, dataRecipes) => {
+  const tag = document.getElementById(nameTag);
+  const arrTag = new Set();
 
-  tagIngredients.innerHTML = "";
+  tag.innerHTML = "";
 
   for (const recipe of dataRecipes) {
-    for (const item of recipe.ingredients) {
-      const ingredient = item.ingredient.toLowerCase();
-
-      ingredients.add(ingredient);
+    if (tag.id === "tag-ingredients") {
+      for (const item of recipe.ingredients) {
+        let ingredient = item.ingredient.toLowerCase();
+        arrTag.add(ingredient);
+      }
+    } else if (tag.id === "tag-appliances") {
+      arrTag.add(recipe.appliance);
+    } else if (tag.id === "tag-utensils") {
+      for (const item of recipe.utensils) {
+        arrTag.add(item);
+      }
     }
   }
 
-  for (let ingredient of ingredients) {
-    ingredient = ingredient.charAt(0).toUpperCase() + ingredient.slice(1);
-    tagIngredients.innerHTML += `<p class="menu__selects__select__ingredients__ingredient">${ingredient}</p>`;
+  addInHTML(tag, arrTag);
+};
+
+const addInHTML = (tag, arrTag) => {
+  for (let item of arrTag) {
+    if (tag.id === "tag-ingredients" || tag.id === "tag-utensils") {
+      item = item.charAt(0).toUpperCase() + item.slice(1);
+    }
+    tag.innerHTML += `<p class="menu__selects__select__items__item">${item}</p>`;
   }
+};
+
+export const displayIngredientsTag = (dataRecipes) => {
+  displayItemTag("tag-ingredients", dataRecipes);
+};
+
+export const displayAppliancesTag = (dataRecipes) => {
+  displayItemTag("tag-appliances", dataRecipes);
+};
+
+export const displayUtensilsTag = (dataRecipes) => {
+  displayItemTag("tag-utensils", dataRecipes);
 };
 
 displayRecipes(recipes);
