@@ -1,11 +1,11 @@
 import { recipes } from "../data/recipes.js";
 import { Recipe } from "./templates/Recipe.js";
 
-export const filteredRecipes = [...recipes];
+export let filteredRecipes = [...recipes];
 
 export const displayRecipes = () => {
   const recipesSection = document.getElementById("recipes");
-  const recipesNbr = document.getElementById("number-recipes");
+  const recipesNbr = document.getElementById("recipesNumber");
 
   recipesSection.innerHTML = "";
 
@@ -15,6 +15,8 @@ export const displayRecipes = () => {
     recipesSection.innerHTML += recipeModel.getRecipesDOMPage();
     recipesNbr.innerHTML = `${filteredRecipes.length} recettes`;
   }
+
+  filteredRecipes = [...recipes];
 };
 
 const displayItemTag = (nameTag, dataRecipes, search) => {
@@ -24,7 +26,7 @@ const displayItemTag = (nameTag, dataRecipes, search) => {
   tag.innerHTML = "";
 
   for (const recipe of dataRecipes) {
-    if (tag.id === "tag-ingredients") {
+    if (tag.id === "ingredientsTagDiv") {
       for (const item of recipe.ingredients) {
         let ingredient = item.ingredient.toLowerCase();
         if (search.length <= 2 || ingredient.includes(search)) {
@@ -32,11 +34,11 @@ const displayItemTag = (nameTag, dataRecipes, search) => {
           arrTag.add(ingredient);
         }
       }
-    } else if (tag.id === "tag-appliances") {
+    } else if (tag.id === "appliancesTagDiv") {
       if (search.length <= 2 || recipe.appliance.toLowerCase().includes(search)) {
         arrTag.add(recipe.appliance);
       }
-    } else if (tag.id === "tag-utensils") {
+    } else if (tag.id === "utensilsTagDiv") {
       for (let item of recipe.utensils) {
         if (search.length <= 2 || item.toLowerCase().includes(search)) {
           item = item.charAt(0).toUpperCase() + item.slice(1);
@@ -56,15 +58,15 @@ const addInHTML = (tag, arrTag) => {
 };
 
 export const displayIngredientsTag = (dataRecipes, search) => {
-  displayItemTag("tag-ingredients", dataRecipes, search);
+  displayItemTag("ingredientsTagDiv", dataRecipes, search);
 };
 
 export const displayAppliancesTag = (dataRecipes, search) => {
-  displayItemTag("tag-appliances", dataRecipes, search);
+  displayItemTag("appliancesTagDiv", dataRecipes, search);
 };
 
 export const displayUtensilsTag = (dataRecipes, search) => {
-  displayItemTag("tag-utensils", dataRecipes, search);
+  displayItemTag("utensilsTagDiv", dataRecipes, search);
 };
 
 displayRecipes();

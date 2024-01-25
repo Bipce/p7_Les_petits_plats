@@ -5,9 +5,9 @@ const ingredientTag = document.getElementById("ingredientsTagTitle");
 const appliancesTag = document.getElementById("appliancesTagTitle");
 const utensilsTag = document.getElementById("utensilsTagTitle");
 
-const inputIngredientTag = document.getElementById("ingredients");
-const inputAppliancesTag = document.getElementById("appliances");
-const inputUtensilsTag = document.getElementById("utensils");
+const inputIngredientTag = document.getElementById("ingredientsInput");
+const inputAppliancesTag = document.getElementById("appliancesInput");
+const inputUtensilsTag = document.getElementById("utensilsInput");
 
 const setAttributes = (nameTag) => {
   const parentElement = nameTag.parentElement;
