@@ -1,7 +1,7 @@
 import { recipes } from "../data/recipes.js";
 import { Recipe } from "./templates/Recipe.js";
 
-export const filteredRecipes = new Set([...recipes]);
+export const filteredRecipes = [...recipes];
 
 export const displayRecipes = () => {
   const recipesSection = document.getElementById("recipes");
@@ -13,7 +13,7 @@ export const displayRecipes = () => {
     const recipeModel = new Recipe(recipe);
 
     recipesSection.innerHTML += recipeModel.getRecipesDOMPage();
-    recipesNbr.innerHTML = `${filteredRecipes.size} recettes`;
+    recipesNbr.innerHTML = `${filteredRecipes.length} recettes`;
   }
 };
 

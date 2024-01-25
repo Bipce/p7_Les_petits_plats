@@ -1,9 +1,9 @@
 import { displayAppliancesTag, displayIngredientsTag, displayUtensilsTag } from "./index.js";
 import { recipes } from "../data/recipes.js";
 
-const ingredientTag = document.getElementById("ingredients-tag");
-const appliancesTag = document.getElementById("appliances-tag");
-const utensilsTag = document.getElementById("utensils-tag");
+const ingredientTag = document.getElementById("ingredientsTagTitle");
+const appliancesTag = document.getElementById("appliancesTagTitle");
+const utensilsTag = document.getElementById("utensilsTagTitle");
 
 const inputIngredientTag = document.getElementById("ingredients");
 const inputAppliancesTag = document.getElementById("appliances");

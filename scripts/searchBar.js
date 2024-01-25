@@ -5,6 +5,7 @@ const searchBar = document.getElementById("searchbar");
 
 const search = (e) => {
   const userSearch = e.target.value.toLowerCase();
+  filteredRecipes.splice(0, filteredRecipes.length);
 
   for (let i = 0; i < recipes.length; i++) {
     if (recipes[i].name.toLowerCase().includes(userSearch)
