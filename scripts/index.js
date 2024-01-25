@@ -1,17 +1,19 @@
 import { recipes } from "../data/recipes.js";
 import { Recipe } from "./templates/Recipe.js";
 
-export const displayRecipes = (data) => {
+export const filteredRecipes = new Set([...recipes]);
+
+export const displayRecipes = () => {
   const recipesSection = document.getElementById("recipes");
   const recipesNbr = document.getElementById("number-recipes");
 
   recipesSection.innerHTML = "";
 
-  for (const recipe of data) {
+  for (const recipe of filteredRecipes) {
     const recipeModel = new Recipe(recipe);
 
     recipesSection.innerHTML += recipeModel.getRecipesDOMPage();
-    recipesNbr.innerHTML = `${data.length} recettes`;
+    recipesNbr.innerHTML = `${filteredRecipes.size} recettes`;
   }
 };
 
@@ -65,4 +67,4 @@ export const displayUtensilsTag = (dataRecipes, search) => {
   displayItemTag("tag-utensils", dataRecipes, search);
 };
 
-displayRecipes(recipes);
+displayRecipes();
