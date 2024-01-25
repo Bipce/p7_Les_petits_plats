@@ -1,9 +1,9 @@
 .recipes {
     margin-top: 4rem;
     display: flex;
-    gap: 5rem 4.3rem;
+    gap: 5rem 0.5rem;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     position: relative;
 }
 
@@ -13,6 +13,7 @@
     border-radius: 21px;
     height: 731px;
     position: relative;
+    margin-inline: auto;
 }
 
 .recipes__article__img {

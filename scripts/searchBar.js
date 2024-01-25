@@ -1,5 +1,5 @@
 import { recipes } from "../data/recipes.js";
-import { displayIngredientsTag, displayRecipes } from "./index.js";
+import { displayRecipes } from "./index.js";
 
 const searchBar = document.getElementById("searchbar");
 
@@ -22,7 +22,6 @@ const search = (e) => {
   }
 
   displayRecipes(filteredRecipes);
-  displayIngredientsTag(filteredRecipes);
 };
 
 searchBar.addEventListener("input", (e) => {

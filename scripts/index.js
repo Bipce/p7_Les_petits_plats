@@ -15,7 +15,7 @@ export const displayRecipes = (data) => {
   }
 };
 
-const displayItemTag = (nameTag, dataRecipes) => {
+const displayItemTag = (nameTag, dataRecipes, search) => {
   const tag = document.getElementById(nameTag);
   const arrTag = new Set();
 
@@ -25,13 +25,21 @@ const displayItemTag = (nameTag, dataRecipes) => {
     if (tag.id === "tag-ingredients") {
       for (const item of recipe.ingredients) {
         let ingredient = item.ingredient.toLowerCase();
-        arrTag.add(ingredient);
+        if (search.length <= 2 || ingredient.includes(search)) {
+          ingredient = ingredient.charAt(0).toUpperCase() + ingredient.slice(1);
+          arrTag.add(ingredient);
+        }
       }
     } else if (tag.id === "tag-appliances") {
-      arrTag.add(recipe.appliance);
+      if (search.length <= 2 || recipe.appliance.toLowerCase().includes(search)) {
+        arrTag.add(recipe.appliance);
+      }
     } else if (tag.id === "tag-utensils") {
-      for (const item of recipe.utensils) {
-        arrTag.add(item);
+      for (let item of recipe.utensils) {
+        if (search.length <= 2 || item.toLowerCase().includes(search)) {
+          item = item.charAt(0).toUpperCase() + item.slice(1);
+          arrTag.add(item);
+        }
       }
     }
   }
@@ -41,23 +49,20 @@ const displayItemTag = (nameTag, dataRecipes) => {
 
 const addInHTML = (tag, arrTag) => {
   for (let item of arrTag) {
-    if (tag.id === "tag-ingredients" || tag.id === "tag-utensils") {
-      item = item.charAt(0).toUpperCase() + item.slice(1);
-    }
     tag.innerHTML += `<p class="menu__selects__select__items__item">${item}</p>`;
   }
 };
 
-export const displayIngredientsTag = (dataRecipes) => {
-  displayItemTag("tag-ingredients", dataRecipes);
+export const displayIngredientsTag = (dataRecipes, search) => {
+  displayItemTag("tag-ingredients", dataRecipes, search);
 };
 
-export const displayAppliancesTag = (dataRecipes) => {
-  displayItemTag("tag-appliances", dataRecipes);
+export const displayAppliancesTag = (dataRecipes, search) => {
+  displayItemTag("tag-appliances", dataRecipes, search);
 };
 
-export const displayUtensilsTag = (dataRecipes) => {
-  displayItemTag("tag-utensils", dataRecipes);
+export const displayUtensilsTag = (dataRecipes, search) => {
+  displayItemTag("tag-utensils", dataRecipes, search);
 };
 
 displayRecipes(recipes);
