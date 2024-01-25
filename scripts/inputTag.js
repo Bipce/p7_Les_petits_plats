@@ -1,9 +1,12 @@
-import { displayAppliancesTag, displayIngredientsTag, displayUtensilsTag } from "./index.js";
-import { recipes } from "../data/recipes.js";
+import { updateTag } from "./index.js";
 
 const ingredientTag = document.getElementById("ingredientsTagTitle");
 const appliancesTag = document.getElementById("appliancesTagTitle");
 const utensilsTag = document.getElementById("utensilsTagTitle");
+
+const ingredientTagDiv = document.getElementById("ingredientsTagDiv");
+const appliancesTagDiv = document.getElementById("appliancesTagDiv");
+const utensilsTagDiv = document.getElementById("utensilsTagDiv");
 
 const inputIngredientTag = document.getElementById("ingredientsInput");
 const inputAppliancesTag = document.getElementById("appliancesInput");
@@ -19,25 +22,43 @@ const setAttributes = (nameTag) => {
   }
 };
 
-const openTag = (nameTag) => {
-  setAttributes(nameTag);
-};
-
-const addEventListenerToTag = (nameTag, displayFunc) => {
-  nameTag.addEventListener("click", () => {
-    openTag(nameTag);
-    displayFunc(recipes, "");
+const addEventListenerToTag = (openTag, tag, targetFunc) => {
+  openTag.addEventListener("click", () => {
+    setAttributes(openTag);
+    updateTag(tag, targetFunc, "");
   });
 };
 
-addEventListenerToTag(ingredientTag, displayIngredientsTag);
-addEventListenerToTag(appliancesTag, displayAppliancesTag);
-addEventListenerToTag(utensilsTag, displayUtensilsTag);
-
-const addEventListenerInputTag = (inputTag, displayFunc) => {
-  inputTag.addEventListener("input", (e) => displayFunc(recipes, e.target.value));
+const ingredientsFunc = (recipe) => {
+  const target = [];
+  
+  for (const item of recipe.ingredients) {
+    target.push(item.ingredient);
+  }
+  return target;
 };
 
-addEventListenerInputTag(inputIngredientTag, displayIngredientsTag);
-addEventListenerInputTag(inputAppliancesTag, displayAppliancesTag);
-addEventListenerInputTag(inputUtensilsTag, displayUtensilsTag);
+const appliancesFunc = (recipe) => [recipe.appliance];
+
+const utensilsFunc = (recipe) => {
+  const target = [];
+
+  for (const item of recipe.utensils) {
+    target.push(item);
+  }
+  return target;
+};
+
+addEventListenerToTag(ingredientTag, ingredientTagDiv, ingredientsFunc);
+addEventListenerToTag(appliancesTag, appliancesTagDiv, appliancesFunc);
+addEventListenerToTag(utensilsTag, utensilsTagDiv, utensilsFunc);
+
+const addEventListenerInputTag = (inputTag, tag, targetFunc) => {
+  inputTag.addEventListener("input", (e) => {
+    updateTag(tag, targetFunc, e.target.value);
+  });
+};
+
+addEventListenerInputTag(inputIngredientTag, ingredientTagDiv, ingredientsFunc);
+addEventListenerInputTag(inputAppliancesTag, appliancesTagDiv, appliancesFunc);
+addEventListenerInputTag(inputUtensilsTag, utensilsTagDiv, utensilsFunc);
