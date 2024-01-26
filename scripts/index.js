@@ -6,6 +6,9 @@ const recipesNbr = document.getElementById("recipesNumber");
 
 export const state = {
   filteredRecipes: [...recipes],
+  selectedIngredients: [],
+  selectedAppliances: [],
+  selectedUtensils: [],
 };
 
 export const displayRecipes = () => {
@@ -18,28 +21,31 @@ export const displayRecipes = () => {
   recipesNbr.innerHTML = `${state.filteredRecipes.length} recettes`;
 };
 
-export const displayTag = (tag, data) => {
+export const displayTag = (tag, tagData) => {
+  const sortedTagData = [...tagData];
+
   tag.innerHTML = "";
 
-  for (const item of data) {
+  sortedTagData.sort();
+
+  for (const item of sortedTagData) {
     const display = item.charAt(0).toUpperCase() + item.slice(1);
     tag.innerHTML += `<p class="menu__selects__select__items__item">${display}</p>`;
   }
 };
 
-export const updateTag = (tag, targetFunc, search) => {
-  const data = new Set();
-
+export const updateTag = (tag, targetTagFunc, userSearch) => {
+  const tagData = new Set();
   for (const recipe of state.filteredRecipes) {
-    const target = targetFunc(recipe);
-    for (const item of target) {
-      const ret = item.toLowerCase();
-      if (search.length <= 2 || ret.includes(search)) {
-        data.add(ret);
+    const tagsArray = targetTagFunc(recipe);
+    for (const item of tagsArray) {
+      const itemLowerCase = item.toLowerCase();
+      if (itemLowerCase.includes(userSearch)) {
+        tagData.add(itemLowerCase);
       }
     }
   }
-  displayTag(tag, data);
+  displayTag(tag, tagData);
 };
 
 displayRecipes();

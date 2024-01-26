@@ -3,7 +3,7 @@ import { displayRecipes, state } from "./index.js";
 
 const searchBar = document.getElementById("searchbar");
 
-const search = (e) => {
+const searchRecipes = (e) => {
   const userSearch = e.target.value.toLowerCase();
   state.filteredRecipes = [];
 
@@ -25,7 +25,7 @@ const search = (e) => {
 
 searchBar.addEventListener("input", (e) => {
   if (e.target.value.length > 2) {
-    search(e);
+    searchRecipes(e);
   } else {
     state.filteredRecipes = [...recipes];
     displayRecipes();

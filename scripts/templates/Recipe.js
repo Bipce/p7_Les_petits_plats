@@ -46,17 +46,11 @@ export class Recipe {
   getIngredientRecipeDOMPage(ingredient) {
     let data = "";
 
-    if (ingredient.quantity) {
-      data += `<p>${ingredient.quantity}</p>`;
-    }
+    data += ingredient.quantity ? `<p>${ingredient.quantity}</p>` : "";
 
-    if (ingredient.unit) {
-      data += `<p>${ingredient.unit}</p>`;
-    }
-
-    if (!ingredient.quantity && !ingredient.unit) {
-      data += `<p>-</p>`;
-    }
+    data += ingredient.unit ? `<p>${ingredient.unit}</p>` : "";
+    
+    data += !ingredient.quantity && !ingredient.unit ? `<p>-</p>` : "";
 
     return (`
       <div class="recipes__article__content__ingredients__box__ingredient">

@@ -22,40 +22,40 @@ const setAttributes = (nameTag) => {
   }
 };
 
-const addEventListenerToTag = (openTag, tag, targetFunc) => {
-  openTag.addEventListener("click", () => {
-    setAttributes(openTag);
+const addEventListenerToTag = (nameTag, tag, targetFunc) => {
+  nameTag.addEventListener("click", () => {
+    setAttributes(nameTag);
     updateTag(tag, targetFunc, "");
   });
 };
 
 const ingredientsFunc = (recipe) => {
-  const target = [];
-  
+  const ingredientsArr = [];
+
   for (const item of recipe.ingredients) {
-    target.push(item.ingredient);
+    ingredientsArr.push(item.ingredient);
   }
-  return target;
+  return ingredientsArr;
 };
 
 const appliancesFunc = (recipe) => [recipe.appliance];
 
 const utensilsFunc = (recipe) => {
-  const target = [];
+  const utensilsArr = [];
 
   for (const item of recipe.utensils) {
-    target.push(item);
+    utensilsArr.push(item);
   }
-  return target;
+  return utensilsArr;
 };
 
 addEventListenerToTag(ingredientTag, ingredientTagDiv, ingredientsFunc);
 addEventListenerToTag(appliancesTag, appliancesTagDiv, appliancesFunc);
 addEventListenerToTag(utensilsTag, utensilsTagDiv, utensilsFunc);
 
-const addEventListenerInputTag = (inputTag, tag, targetFunc) => {
+const addEventListenerInputTag = (inputTag, tag, targetTagFunc) => {
   inputTag.addEventListener("input", (e) => {
-    updateTag(tag, targetFunc, e.target.value);
+    updateTag(tag, targetTagFunc, e.target.value);
   });
 };
 
