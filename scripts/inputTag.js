@@ -12,6 +12,11 @@ const inputIngredientTag = document.getElementById("ingredientsInput");
 const inputAppliancesTag = document.getElementById("appliancesInput");
 const inputUtensilsTag = document.getElementById("utensilsInput");
 
+const clearIconIngredientsSearch = document.getElementById("clearUserIngredientsSearch");
+const clearIconAppliancesSearch = document.getElementById("clearUserAppliancesSearch");
+const clearIconUtensilsSearch = document.getElementById("clearUserUtensilsSearch");
+
+
 const setAttributes = (nameTag) => {
   const parentElement = nameTag.parentElement;
 
@@ -53,12 +58,24 @@ addEventListenerToTag(ingredientTag, ingredientTagDiv, ingredientsFunc);
 addEventListenerToTag(appliancesTag, appliancesTagDiv, appliancesFunc);
 addEventListenerToTag(utensilsTag, utensilsTagDiv, utensilsFunc);
 
-const addEventListenerInputTag = (inputTag, tag, targetTagFunc) => {
+const stateClearIcon = (inputTag, clearIcon) => {
+  const state = inputTag.value.length > 0;
+  clearIcon.setAttribute("isClicked", state);
+};
+
+const addEventListenerInputTag = (inputTag, tag, targetTagFunc, clearIcon) => {
   inputTag.addEventListener("input", (e) => {
     updateTag(tag, targetTagFunc, e.target.value);
+    stateClearIcon(inputTag, clearIcon);
+  });
+
+  clearIcon.addEventListener("click", () => {
+    inputTag.value = "";
+    updateTag(tag, targetTagFunc, inputTag.value);
+    stateClearIcon(inputTag, clearIcon);
   });
 };
 
-addEventListenerInputTag(inputIngredientTag, ingredientTagDiv, ingredientsFunc);
-addEventListenerInputTag(inputAppliancesTag, appliancesTagDiv, appliancesFunc);
-addEventListenerInputTag(inputUtensilsTag, utensilsTagDiv, utensilsFunc);
+addEventListenerInputTag(inputIngredientTag, ingredientTagDiv, ingredientsFunc, clearIconIngredientsSearch);
+addEventListenerInputTag(inputAppliancesTag, appliancesTagDiv, appliancesFunc, clearIconAppliancesSearch);
+addEventListenerInputTag(inputUtensilsTag, utensilsTagDiv, utensilsFunc, clearIconUtensilsSearch);
