@@ -19,12 +19,8 @@ const clearIconUtensilsSearch = document.getElementById("clearUserUtensilsSearch
 
 const setAttributes = (nameTag) => {
   const parentElement = nameTag.parentElement;
-
-  if (parentElement.getAttribute("isOpen") === "false") {
-    parentElement.setAttribute("isOpen", "true");
-  } else {
-    parentElement.setAttribute("isOpen", "false");
-  }
+  const state = parentElement.getAttribute("isOpen");
+  parentElement.setAttribute("isOpen", (state === "false").toString());
 };
 
 const addEventListenerToTag = (nameTag, tag, targetFunc) => {
