@@ -35,7 +35,6 @@
         <h2 class="menu__selects__select__title" id="ingredientsTagTitle">Ingrédients
           <img class="menu__selects__select__title__icon" src="assets/icons/tag__icon.png" alt="Ouvrir liste">
         </h2>
-
         <div class="menu__selects__select__input">
           <label for="ingredientsInput"></label>
           <input type="text" name="ingredients" id="ingredientsInput" class="menu__selects__select__input__search">
@@ -44,7 +43,7 @@
           <img src="assets/icons/input__icon.png" alt="Icon rechercher"
                class="menu__selects__select__input__search__icon">
         </div>
-        <div class="menu__selects__select__selectItem"></div>
+        <div class="menu__selects__select__selectItems" id="selectIngredients"></div>
         <div id="ingredientsTagDiv" class="menu__selects__select__items"></div>
       </div>
 
@@ -52,7 +51,6 @@
         <h2 class="menu__selects__select__title" id="appliancesTagTitle">Appareils
           <img class="menu__selects__select__title__icon" src="assets/icons/tag__icon.png" alt="Ouvrir liste">
         </h2>
-
         <div class="menu__selects__select__input">
           <label for="appliancesInput"></label>
           <input type="text" name="appliances" id="appliancesInput" class="menu__selects__select__input__search">
@@ -61,8 +59,8 @@
           <img src="assets/icons/input__icon.png" alt="Icon rechercher"
                class="menu__selects__select__input__search__icon">
         </div>
-        <div id="appliancesTagDiv" class="menu__selects__select__items">
-        </div>
+        <div class="menu__selects__select__selectItems" id="selectAppliances"></div>
+        <div id="appliancesTagDiv" class="menu__selects__select__items"></div>
       </div>
 
       <div class="menu__selects__select" isOpen="false">
@@ -78,8 +76,8 @@
           <img src="assets/icons/input__icon.png" alt="Icon rechercher"
                class="menu__selects__select__input__search__icon">
         </div>
-        <div id="utensilsTagDiv" class="menu__selects__select__items">
-        </div>
+        <div class="menu__selects__select__selectItems" id="selectUtensils"></div>
+        <div id="utensilsTagDiv" class="menu__selects__select__items"></div>
       </div>
     </div>
 
@@ -92,7 +90,7 @@
 
 <script src="scripts/templates/Recipe.js" type="module"></script>
 <script src="scripts/searchBar.js" type="module"></script>
-<script src="scripts/inputTag.js" type="module"></script>
+<script src="scripts/tags.js" type="module"></script>
 <script src="scripts/index.js" type="module"></script>
 </body>
 </html>

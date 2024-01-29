@@ -16,6 +16,9 @@ const clearIconIngredientsSearch = document.getElementById("clearUserIngredients
 const clearIconAppliancesSearch = document.getElementById("clearUserAppliancesSearch");
 const clearIconUtensilsSearch = document.getElementById("clearUserUtensilsSearch");
 
+export const selectIngredientsDiv = document.getElementById("selectIngredients");
+export const selectAppliancesDiv = document.getElementById("selectAppliances");
+export const selectUtensilsDiv = document.getElementById("selectUtensils");
 
 const setAttributes = (nameTag) => {
   const parentElement = nameTag.parentElement;
@@ -23,10 +26,10 @@ const setAttributes = (nameTag) => {
   parentElement.setAttribute("isOpen", (state === "false").toString());
 };
 
-const addEventListenerToTag = (nameTag, tag, targetFunc) => {
+const addEventListenerToTag = (nameTag, tag, targetFunc, selectedItemsDiv, stateName) => {
   nameTag.addEventListener("click", () => {
     setAttributes(nameTag);
-    updateTag(tag, targetFunc, "");
+    updateTag(tag, targetFunc, "", selectedItemsDiv, stateName);
   });
 };
 
@@ -50,9 +53,9 @@ const utensilsFunc = (recipe) => {
   return utensilsArr;
 };
 
-addEventListenerToTag(ingredientTag, ingredientTagDiv, ingredientsFunc);
-addEventListenerToTag(appliancesTag, appliancesTagDiv, appliancesFunc);
-addEventListenerToTag(utensilsTag, utensilsTagDiv, utensilsFunc);
+addEventListenerToTag(ingredientTag, ingredientTagDiv, ingredientsFunc, selectIngredientsDiv, "selectedIngredients");
+addEventListenerToTag(appliancesTag, appliancesTagDiv, appliancesFunc, selectAppliancesDiv, "selectedAppliances");
+addEventListenerToTag(utensilsTag, utensilsTagDiv, utensilsFunc, selectUtensilsDiv, "selectedUtensils");
 
 const stateClearIcon = (inputTag, clearIcon) => {
   const state = inputTag.value.length > 0;
