@@ -62,19 +62,21 @@ const stateClearIcon = (inputTag, clearIcon) => {
   clearIcon.setAttribute("isClicked", state);
 };
 
-const addEventListenerInputTag = (inputTag, tag, targetTagFunc, clearIcon) => {
+const addEventListenerInputTag = (inputTag, tag, targetTagFunc, clearIcon, selectedItemsDiv, stateName) => {
   inputTag.addEventListener("input", (e) => {
-    updateTag(tag, targetTagFunc, e.target.value);
+    updateTag(tag, targetTagFunc, e.target.value, selectedItemsDiv, stateName);
     stateClearIcon(inputTag, clearIcon);
   });
-
   clearIcon.addEventListener("click", () => {
     inputTag.value = "";
-    updateTag(tag, targetTagFunc, inputTag.value);
+    updateTag(tag, targetTagFunc, inputTag.value, selectedItemsDiv, stateName);
     stateClearIcon(inputTag, clearIcon);
   });
 };
 
-addEventListenerInputTag(inputIngredientTag, ingredientTagDiv, ingredientsFunc, clearIconIngredientsSearch);
-addEventListenerInputTag(inputAppliancesTag, appliancesTagDiv, appliancesFunc, clearIconAppliancesSearch);
-addEventListenerInputTag(inputUtensilsTag, utensilsTagDiv, utensilsFunc, clearIconUtensilsSearch);
+addEventListenerInputTag(inputIngredientTag, ingredientTagDiv, ingredientsFunc, clearIconIngredientsSearch,
+  selectIngredientsDiv, "selectedIngredients");
+addEventListenerInputTag(inputAppliancesTag, appliancesTagDiv, appliancesFunc, clearIconAppliancesSearch,
+  selectAppliancesDiv, "selectedAppliances");
+addEventListenerInputTag(inputUtensilsTag, utensilsTagDiv, utensilsFunc, clearIconUtensilsSearch, selectUtensilsDiv,
+  "selectedUtensils");

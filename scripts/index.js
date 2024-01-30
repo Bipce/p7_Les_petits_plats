@@ -58,11 +58,13 @@ const selectItemTag = (item, tag, sortedTagData, selectedItemsDiv, stateName) =>
     item.setAttribute("isSelected", "false");
     selectedItems.splice(selectedItems.indexOf(item.textContent), 1);
   }
+
   displayTag(tag, sortedTagData, selectedItemsDiv, stateName);
 };
 
 export const updateTag = (tag, targetTagFunc, userSearch, selectedItemsDiv, stateName) => {
   const tagData = new Set();
+
   for (const recipe of state.filteredRecipes) {
     const tagsArray = targetTagFunc(recipe);
     for (const item of tagsArray) {

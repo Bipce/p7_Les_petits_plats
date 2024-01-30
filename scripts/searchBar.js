@@ -2,6 +2,7 @@ import { recipes } from "../data/recipes.js";
 import { displayRecipes, state } from "./index.js";
 
 const searchBar = document.getElementById("searchbar");
+const tags = document.querySelectorAll(".menu__selects__select");
 
 const searchRecipes = (e) => {
   const userSearch = e.target.value.toLowerCase();
@@ -24,6 +25,14 @@ const searchRecipes = (e) => {
 };
 
 searchBar.addEventListener("input", (e) => {
+  tags.forEach(tag => {
+    tag.setAttribute("isOpen", "false");
+    tag.children[2].style.display = "none";
+    state.selectedIngredients = [];
+    state.selectedAppliances = [];
+    state.selectedUtensils = [];
+  });
+
   if (e.target.value.length > 2) {
     searchRecipes(e);
   } else {
