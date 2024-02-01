@@ -1,5 +1,6 @@
 import { Recipe } from "./templates/Recipe.js";
 import { recipes } from "../data/recipes.js";
+import { appliancesFunc, ingredientsFunc, utensilsFunc } from "./tags.js";
 
 const recipesSection = document.getElementById("recipes");
 const recipesNbr = document.getElementById("recipesNumber");
@@ -9,6 +10,7 @@ export const state = {
   selectedIngredients: [],
   selectedAppliances: [],
   selectedUtensils: [],
+  searchedRecipes: [...recipes],
 };
 
 export const displayRecipes = () => {
@@ -18,6 +20,7 @@ export const displayRecipes = () => {
     const recipeModel = new Recipe(recipe);
     recipesSection.innerHTML += recipeModel.getRecipesDOMPage();
   }
+
   recipesNbr.innerHTML = `${state.filteredRecipes.length} recettes`;
 };
 
@@ -59,7 +62,52 @@ const selectItemTag = (item, tag, sortedTagData, selectedItemsDiv, stateName) =>
     selectedItems.splice(selectedItems.indexOf(item.textContent), 1);
   }
 
+  updateRecipesWithTag();
   displayTag(tag, sortedTagData, selectedItemsDiv, stateName);
+};
+
+const updateRecipesWithTag = () => {
+  state.filteredRecipes = [];
+  let canAddRecipe = true;
+
+  for (const recipe of state.searchedRecipes) {
+    canAddRecipe = true;
+
+    const ingredients = ingredientsFunc(recipe);
+    for (const selectedIngredient of state.selectedIngredients) {
+      if (!ingredients.includes(selectedIngredient)) {
+        canAddRecipe = false;
+        break;
+      }
+    }
+
+    const appliances = appliancesFunc(recipe);
+    // console.log(appliances);
+    // console.log(state.selectedAppliances);
+
+    for (const selectedAppliance of state.selectedAppliances) {
+      if (!appliances.includes(selectedAppliance)) {
+        canAddRecipe = false;
+        break;
+      }
+    }
+
+    const utensils = utensilsFunc(recipe);
+    // console.log(utensils);
+    // console.log(state.selectedUtensils);
+
+    for (const selectedUtensil of state.selectedUtensils) {
+      if (!utensils.includes(selectedUtensil)) {
+        canAddRecipe = false;
+        break;
+      }
+    }
+
+    if (canAddRecipe) {
+      state.filteredRecipes.push(recipe);
+    }
+  }
+  displayRecipes();
 };
 
 export const updateTag = (tag, targetTagFunc, userSearch, selectedItemsDiv, stateName) => {

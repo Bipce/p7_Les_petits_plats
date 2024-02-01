@@ -33,7 +33,7 @@ const addEventListenerToTag = (nameTag, tag, targetFunc, selectedItemsDiv, state
   });
 };
 
-const ingredientsFunc = (recipe) => {
+export const ingredientsFunc = (recipe) => {
   const ingredientsArr = [];
 
   for (const item of recipe.ingredients) {
@@ -42,12 +42,13 @@ const ingredientsFunc = (recipe) => {
   return ingredientsArr;
 };
 
-const appliancesFunc = (recipe) => [recipe.appliance];
+export const appliancesFunc = (recipe) => [recipe.appliance];
 
-const utensilsFunc = (recipe) => {
+export const utensilsFunc = (recipe) => {
   const utensilsArr = [];
 
-  for (const item of recipe.utensils) {
+  for (let item of recipe.utensils) {
+    item = item.charAt(0).toUpperCase() + item.slice(1);
     utensilsArr.push(item);
   }
   return utensilsArr;

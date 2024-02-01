@@ -21,10 +21,12 @@ const searchRecipes = (e) => {
       }
     }
   }
+
+  state.searchedRecipes = [...state.filteredRecipes];
   displayRecipes();
 };
 
-searchBar.addEventListener("input", (e) => {
+searchBar.addEventListener("click", () => {
   tags.forEach(tag => {
     tag.setAttribute("isOpen", "false");
     tag.children[2].style.display = "none";
@@ -32,11 +34,14 @@ searchBar.addEventListener("input", (e) => {
     state.selectedAppliances = [];
     state.selectedUtensils = [];
   });
+});
 
+searchBar.addEventListener("input", (e) => {
   if (e.target.value.length > 2) {
     searchRecipes(e);
   } else {
     state.filteredRecipes = [...recipes];
+    state.searchedRecipes = [...recipes];
     displayRecipes();
   }
 });

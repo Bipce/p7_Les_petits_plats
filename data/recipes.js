@@ -31,7 +31,7 @@ export const recipes = [
     "time": 10,
     "description": "Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée",
     "appliance": "Blender",
-    "utensils": ["cuillère à Soupe", "verres", "presse citron"],
+    "utensils": ["cuillère à soupe", "verres", "presse citron"],
   },
   {
     "id": 2,
@@ -305,7 +305,7 @@ export const recipes = [
   {
     "id": 9,
     "image": "Recette09.jpg",
-    "name": "Salade Méditerannéene fraîche au chèvre",
+    "name": "Salade Méditerranéenne fraîche au chèvre",
     "servings": 4,
     "ingredients": [
       {
@@ -1155,7 +1155,7 @@ export const recipes = [
     "time": 20,
     "description": "Beurrer les tranches de pain, ajouter entre 2 tranches de pain de mie 1 tranche d’emmental, une de blanc de dinde, et une autre d'emmental. Dans un récipient, mélanger le gruyère rappé avec le lait et la noix de muscade. Mettre sur les croque monsieur. Placer au four durant 10 minutes.",
     "appliance": "Four",
-    "utensils": ["râpe à fromage", "cuillère à Soupe", "couteau"],
+    "utensils": ["râpe à fromage", "cuillère à soupe", "couteau"],
   },
   {
     "id": 33,
@@ -1372,7 +1372,7 @@ export const recipes = [
     "time": 20,
     "description": "Fouettez les oeufs, le sucre et le lait. tremper les tranches de pain. Le cuire au four pendant environ 10 minutes à 180°. Servir",
     "appliance": "Four",
-    "utensils": ["fouet", "bol", "Cuillère à Soupe"],
+    "utensils": ["fouet", "bol", "Cuillère à soupe"],
   },
   {
     "id": 39,
@@ -1753,7 +1753,7 @@ export const recipes = [
         "quantity": 6,
       },
       {
-        "ingredient": "Poudre d'amendes",
+        "ingredient": "Poudre d'amandes",
         "quantity": 500,
         "unit": "grammes",
       },
