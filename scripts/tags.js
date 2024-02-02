@@ -23,6 +23,7 @@ export const selectUtensilsDiv = document.getElementById("selectUtensils");
 const setAttributes = (nameTag) => {
   const parentElement = nameTag.parentElement;
   const state = parentElement.getAttribute("isOpen");
+
   parentElement.setAttribute("isOpen", (state === "false").toString());
 };
 
@@ -68,6 +69,7 @@ const addEventListenerInputTag = (inputTag, tag, targetTagFunc, clearIcon, selec
     updateTag(tag, targetTagFunc, e.target.value, selectedItemsDiv, stateName);
     stateClearIcon(inputTag, clearIcon);
   });
+
   clearIcon.addEventListener("click", () => {
     inputTag.value = "";
     updateTag(tag, targetTagFunc, inputTag.value, selectedItemsDiv, stateName);

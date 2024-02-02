@@ -1,7 +1,11 @@
 .menu {
-    display: flex;
     margin-top: 1.5rem;
+}
+
+.menu-top {
+    display: flex;
     align-items: baseline;
+    margin-bottom: 1rem;
 }
 
 .menu__selects {
@@ -123,4 +127,29 @@
     font-family: "Anton", sans-serif;
     font-size: 1.31rem;
     margin-left: auto;
+}
+
+.menu__selectedItems {
+    display: flex;
+    gap: 1rem;
+}
+
+.menu__selectedItems__item {
+    background-color: var(--primary-color);
+    padding: 17px 18px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.menu__selectedItems__item:hover {
+    font-weight: 700;
+
+    .menu__selectedItems__icon {
+        color: var(--primary-color);
+        background-color: #000;
+        border-radius: 100%;
+        padding: .1rem .25rem;
+    }
 }

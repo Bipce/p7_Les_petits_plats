@@ -40,7 +40,14 @@ export const displayTag = (tag, tagData, selectedItemsDiv, stateName) => {
       tag.innerHTML += `<p class="menu__selects__select__items__item" isSelected="false">${display}</p>`;
     }
   }
+
   selectedItemsDiv.style.display = selectedItemsDiv.children.length === 0 ? "none" : "block";
+
+  if (tag.parentElement.getAttribute("isOpen") === "true" && selectedItemsDiv.children.length > 0) {
+    selectedItemsDiv.style.display = "block";
+  } else {
+    selectedItemsDiv.style.display = "none";
+  }
 
   const eventToSelectedItemTag = (e) => {
     selectItemTag(e.target, tag, sortedTagData, selectedItemsDiv, stateName);
@@ -64,11 +71,13 @@ const selectItemTag = (item, tag, sortedTagData, selectedItemsDiv, stateName) =>
 
   updateRecipesWithTag();
   displayTag(tag, sortedTagData, selectedItemsDiv, stateName);
+  // displaySelectedItemsDiv(tag, sortedTagData, selectedItemsDiv, stateName);
+  displaySelectedItemsDiv(item, stateName);
 };
 
 const updateRecipesWithTag = () => {
-  state.filteredRecipes = [];
   let canAddRecipe = true;
+  state.filteredRecipes = [];
 
   for (const recipe of state.searchedRecipes) {
     canAddRecipe = true;
@@ -82,9 +91,6 @@ const updateRecipesWithTag = () => {
     }
 
     const appliances = appliancesFunc(recipe);
-    // console.log(appliances);
-    // console.log(state.selectedAppliances);
-
     for (const selectedAppliance of state.selectedAppliances) {
       if (!appliances.includes(selectedAppliance)) {
         canAddRecipe = false;
@@ -93,9 +99,6 @@ const updateRecipesWithTag = () => {
     }
 
     const utensils = utensilsFunc(recipe);
-    // console.log(utensils);
-    // console.log(state.selectedUtensils);
-
     for (const selectedUtensil of state.selectedUtensils) {
       if (!utensils.includes(selectedUtensil)) {
         canAddRecipe = false;
@@ -123,6 +126,66 @@ export const updateTag = (tag, targetTagFunc, userSearch, selectedItemsDiv, stat
     }
   }
   displayTag(tag, tagData, selectedItemsDiv, stateName);
+};
+
+// const displaySelectedItemsDiv = (tag, sortedTagData, selectedItemsDiv, stateName) => {
+const div = document.getElementById("menuSelectedItemDiv");
+const displaySelectedItemsDiv = (item, stateName) => {
+  const itemContent = `<div class="menu__selectedItems__item">
+                          <p>${item.textContent}</p>
+                          <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
+                        </div>`;
+
+  // div.innerHTML = "";
+
+  // div.innerHTML += `<span class="menu__selectedItems__item">
+  //                       <p>${item.textContent}</p>
+  //                       <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
+  //                     </span>`;
+
+  div.insertAdjacentHTML("beforeend", itemContent);
+
+  // const element = div.querySelectorAll(".menu__selectedItems__item");
+  div.lastElementChild.addEventListener("click", (e) => {
+    console.log(e.target);
+    console.log(stateName);
+  });
+
+  // for (const selectedIngredient of state.selectedIngredients) {
+  //   div.innerHTML += `<span class="menu__selectedItems__item">
+  //                       <p>${selectedIngredient}</p>
+  //                       <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
+  //                     </span>`;
+  //
+  // }
+  //
+  // for (const selectedAppliance of state.selectedAppliances) {
+  //   div.innerHTML += `<span class="menu__selectedItems__item">
+  //                       <p>${selectedAppliance}</p>
+  //                       <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
+  //                     </span>`;
+  // }
+  //
+  // for (const selectedUtensil of state.selectedUtensils) {
+  //   div.innerHTML += `<span class="menu__selectedItems__item">
+  //                       <p>${selectedUtensil}</p>
+  //                       <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
+  //                     </span>`;
+  // }
+
+  // const selectedElements = document.querySelectorAll(".menu__selectedItems__item");
+  // selectedElements.forEach(selectedElement => selectedElement.addEventListener("click", () => {
+  //   state.selectedIngredients.splice(state.selectedIngredients.indexOf(selectedElement.children[0].textContent), 1);
+  //   state.selectedAppliances.splice(state.selectedAppliances.indexOf(selectedElement.children[0].textContent), 1);
+  //   state.selectedUtensils.splice(state.selectedUtensils.indexOf(selectedElement.children[0].textContent), 1);
+  //
+  //   // const test = state[stateName];
+  //   // test.splice(test.indexOf(selectedElement.children[0].textContent), 1);
+  //
+  //   updateRecipesWithTag();
+  //   displayTag(tag, sortedTagData, selectedItemsDiv, stateName);
+  //   displaySelectedItemsDiv(tag, sortedTagData, selectedItemsDiv, stateName);
+  // }));
 };
 
 displayRecipes();
