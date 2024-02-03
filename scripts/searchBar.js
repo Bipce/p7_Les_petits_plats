@@ -2,7 +2,7 @@ import { recipes } from "../data/recipes.js";
 import { displayRecipes, state } from "./index.js";
 
 const searchBar = document.getElementById("searchbar");
-const tags = document.querySelectorAll(".menu__selects__select");
+const tagsLists = document.querySelectorAll(".menu__selects__select");
 
 const searchRecipes = (e) => {
   const userSearch = e.target.value.toLowerCase();
@@ -22,17 +22,13 @@ const searchRecipes = (e) => {
     }
   }
 
-  state.searchedRecipes = [...state.filteredRecipes];
   displayRecipes();
 };
 
 searchBar.addEventListener("click", () => {
-  tags.forEach(tag => {
-    tag.setAttribute("isOpen", "false");
-    tag.children[2].style.display = "none";
-    state.selectedIngredients = [];
-    state.selectedAppliances = [];
-    state.selectedUtensils = [];
+  tagsLists.forEach(tagList => {
+    tagList.setAttribute("isOpen", "false");
+    tagList.children[2].style.display = "none";
   });
 });
 
@@ -41,7 +37,6 @@ searchBar.addEventListener("input", (e) => {
     searchRecipes(e);
   } else {
     state.filteredRecipes = [...recipes];
-    state.searchedRecipes = [...recipes];
     displayRecipes();
   }
 });
