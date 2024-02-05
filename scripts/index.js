@@ -10,10 +10,7 @@ const utensilsTagDivList = document.getElementById("utensilsTagDiv");
 
 export const state = {
   filteredRecipes: [...recipes],
-  // selectedIngredients: [],
-  // selectedAppliances: [],
-  // selectedUtensils: [],
-  // searchedRecipes: [...recipes],
+  currentTagListId: "",
 };
 
 export const displayRecipes = () => {
@@ -27,29 +24,38 @@ export const displayRecipes = () => {
   recipesNbr.innerHTML = `${state.filteredRecipes.length} recettes`;
 };
 
-export const displayTagList = (tagListId) => {
+export const displayTagList = (userSearch) => {
   const itemTagList = new Set();
+  const tagListId = state.currentTagListId;
+
+  ingredientsTagDivList.innerHTML = "";
+  appliancesTagDivList.innerHTML = "";
+  utensilsTagDivList.innerHTML = "";
 
   for (const recipe of state.filteredRecipes) {
     if (tagListId === "ingredientsTagListTitle") {
       for (const ingredient of recipe.ingredients) {
         const item = ingredient.ingredient.toLowerCase();
-        addInHTML(ingredientsTagDivList, "ingredient", item, itemTagList);
+        addInHTML(ingredientsTagDivList, "ingredient", item, itemTagList, userSearch);
       }
 
     } else if (tagListId === "appliancesTagListTitle") {
-      addInHTML(appliancesTagDivList, "appliance", recipe.appliance, itemTagList);
+      addInHTML(appliancesTagDivList, "appliance", recipe.appliance, itemTagList, userSearch);
 
     } else if (tagListId === "utensilsTagListTitle") {
       for (const utensil of recipe.utensils) {
-        addInHTML(utensilsTagDivList, "utensil", utensil, itemTagList);
+        addInHTML(utensilsTagDivList, "utensil", utensil, itemTagList, userSearch);
       }
     }
   }
 };
 
-const addInHTML = (tagDivList, type, item, setList) => {
+const addInHTML = (tagDivList, type, item, setList, userSearch) => {
   const itemName = item.charAt(0).toUpperCase() + item.slice(1);
+
+  if (!item.toLowerCase().includes(userSearch)) {
+    return;
+  }
 
   if (!setList.has(item)) {
     tagDivList.innerHTML += `<p class="menu__selects__select__items__item" isSelected="false" type="${type}">${itemName}</p>`;

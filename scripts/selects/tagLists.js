@@ -1,5 +1,5 @@
 // import { updateTag } from "./index.js";
-import { displayTagList } from "./index.js";
+import { displayTagList, state } from "../index.js";
 
 const tagListsTitle = document.querySelectorAll(".menu__selects__select__title");
 
@@ -13,16 +13,35 @@ const onTagListsClick = (e) => {
   const isOpen = e.target.parentElement.getAttribute("isOpen");
   e.target.parentElement.setAttribute("isOpen", (isOpen === "false").toString());
 
+  const inputElement = e.target.nextElementSibling.children[1];
+
   if (isOpen === "false") {
-    displayTagList(e.target.id);
+    state.currentTagListId = e.target.id;
+    inputElement.value = "";
+    inputElement.nextElementSibling.style.display = "none"; // Hide cross
+    inputElement.addEventListener("input", onInputChange);
+    inputElement.nextElementSibling.addEventListener("click", onClearInput); // Add event on cross
+    displayTagList("");
   } else {
-    e.target.parentElement.children[3].innerHTML = "";
+    inputElement.removeEventListener("input", onInputChange);
+    inputElement.nextElementSibling.removeEventListener("click", onClearInput); // Remove cross event
   }
 };
 
 tagListsTitle.forEach(tagListTitle => {
   tagListTitle.addEventListener("click", onTagListsClick);
 });
+
+const onInputChange = (e) => {
+  e.target.nextElementSibling.style.display = e.target.value.length > 0 ? "block" : "none"; // Hide or Show cross
+  displayTagList(e.target.value);
+};
+
+const onClearInput = (e) => {
+  e.target.previousElementSibling.value = ""; // Clear input element
+  e.target.style.display = "none"; // Hide cross
+  displayTagList("");
+};
 
 // ingredientsTagListTitleTitle.addEventListener("click", () => {
 //   ingredientsTagListTitleTitle.parentElement.setAttribute("isOpen", "true");
