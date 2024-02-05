@@ -58,7 +58,7 @@ const addInHTML = (tagDivList, type, item, setList, userSearch) => {
   }
 
   if (!setList.has(item)) {
-    tagDivList.innerHTML += `<p class="menu__selects__select__items__item" isSelected="false" type="${type}">${itemName}</p>`;
+    tagDivList.innerHTML += `<p class="menu__selects__select__items__item">${itemName}</p>`;
     setList.add(item);
   }
 };

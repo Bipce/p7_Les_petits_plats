@@ -5,14 +5,17 @@ const tagListsTitle = document.querySelectorAll(".menu__selects__select__title")
 
 const onTagListsClick = (e) => {
   tagListsTitle.forEach(x => {
+    if (x.parentElement.getAttribute("isOpen") === "true") {
+      x.nextElementSibling.nextElementSibling.style.display = "none";
+    }
     if (x.parentElement !== e.target.parentElement) {
       x.parentElement.setAttribute("isOpen", "false");
     }
+    // console.log(x.parentElement.getAttribute("isOpen"));
   });
 
   const isOpen = e.target.parentElement.getAttribute("isOpen");
   e.target.parentElement.setAttribute("isOpen", (isOpen === "false").toString());
-
   const inputElement = e.target.nextElementSibling.children[1];
 
   if (isOpen === "false") {
@@ -22,6 +25,7 @@ const onTagListsClick = (e) => {
     inputElement.addEventListener("input", onInputChange);
     inputElement.nextElementSibling.addEventListener("click", onClearInput); // Add event on cross
     displayTagList("");
+    onSelectItem(e);
   } else {
     inputElement.removeEventListener("input", onInputChange);
     inputElement.nextElementSibling.removeEventListener("click", onClearInput); // Remove cross event
@@ -41,6 +45,21 @@ const onClearInput = (e) => {
   e.target.previousElementSibling.value = ""; // Clear input element
   e.target.style.display = "none"; // Hide cross
   displayTagList("");
+};
+
+const onSelectItem = (e) => {
+  const listDiv = e.target.parentElement;
+  const listDivItems = listDiv.children[3].children;
+  const selectedDivItems = listDiv.children[2];
+
+  // console.log(listDiv);
+
+  for (const item of listDivItems) {
+    item.addEventListener("click", () => {
+      selectedDivItems.appendChild(item);
+      selectedDivItems.style.display = "block";
+    });
+  }
 };
 
 // ingredientsTagListTitleTitle.addEventListener("click", () => {
