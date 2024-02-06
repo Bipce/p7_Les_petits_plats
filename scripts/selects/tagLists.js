@@ -1,5 +1,5 @@
-// import { updateTag } from "./index.js";
 import { displayTagList, state } from "../index.js";
+import { selectedIngredientsDiv, selectedAppliancesDiv, selectedUtensilsDiv } from "../utils/constantes.js";
 
 const tagListsTitle = document.querySelectorAll(".menu__selects__select__title");
 
@@ -8,10 +8,10 @@ const onTagListsClick = (e) => {
     if (x.parentElement.getAttribute("isOpen") === "true") {
       x.nextElementSibling.nextElementSibling.style.display = "none";
     }
+
     if (x.parentElement !== e.target.parentElement) {
       x.parentElement.setAttribute("isOpen", "false");
     }
-    // console.log(x.parentElement.getAttribute("isOpen"));
   });
 
   const isOpen = e.target.parentElement.getAttribute("isOpen");
@@ -25,7 +25,17 @@ const onTagListsClick = (e) => {
     inputElement.addEventListener("input", onInputChange);
     inputElement.nextElementSibling.addEventListener("click", onClearInput); // Add event on cross
     displayTagList("");
-    onSelectItem(e);
+
+    if (state.currentTagListId === "ingredientsTagListTitle") {
+      displaySelectedTagList(selectedIngredientsDiv, state.selectedIngredients, "ingredientsTagListTitle");
+
+    } else if (state.currentTagListId === "appliancesTagListTitle") {
+      displaySelectedTagList(selectedAppliancesDiv, state.selectedAppliances, "appliancesTagListTitle");
+
+    } else if (state.currentTagListId === "utensilsTagListTitle") {
+      displaySelectedTagList(selectedUtensilsDiv, state.selectedUtensils, "utensilsTagListTitle");
+    }
+
   } else {
     inputElement.removeEventListener("input", onInputChange);
     inputElement.nextElementSibling.removeEventListener("click", onClearInput); // Remove cross event
@@ -47,102 +57,24 @@ const onClearInput = (e) => {
   displayTagList("");
 };
 
-const onSelectItem = (e) => {
-  const listDiv = e.target.parentElement;
-  const listDivItems = listDiv.children[3].children;
-  const selectedDivItems = listDiv.children[2];
+const displaySelectedTagList = (selectedDiv, currentState, tagListsTitleName) => {
+  if (state.currentTagListId === tagListsTitleName) {
+    selectedDiv.innerHTML = ""; // Clear HTML to avoid double
 
-  // console.log(listDiv);
+    for (const item of currentState) {
+      selectedDiv.innerHTML += `<p class="menu__selects__select__items__item">${item}</p>`;
+    }
 
-  for (const item of listDivItems) {
-    item.addEventListener("click", () => {
-      selectedDivItems.appendChild(item);
-      selectedDivItems.style.display = "block";
-    });
+    selectedDiv.style.display = selectedDiv.children.length > 0 ? "block" : "none";
   }
 };
 
-// ingredientsTagListTitleTitle.addEventListener("click", () => {
-//   ingredientsTagListTitleTitle.parentElement.setAttribute("isOpen", "true");
-// });
-
-//
-// const ingredientTagDiv = document.getElementById("ingredientsTagDiv");
-// const appliancesTagDiv = document.getElementById("appliancesTagDiv");
-// const utensilsTagDiv = document.getElementById("utensilsTagDiv");
-//
-// const inputIngredientTag = document.getElementById("ingredientsInput");
-// const inputAppliancesTag = document.getElementById("appliancesInput");
-// const inputUtensilsTag = document.getElementById("utensilsInput");
-//
-// const clearIconIngredientsSearch = document.getElementById("clearUserIngredientsSearch");
-// const clearIconAppliancesSearch = document.getElementById("clearUserAppliancesSearch");
-// const clearIconUtensilsSearch = document.getElementById("clearUserUtensilsSearch");
-//
-// export const selectIngredientsDiv = document.getElementById("selectIngredients");
-// export const selectAppliancesDiv = document.getElementById("selectAppliances");
-// export const selectUtensilsDiv = document.getElementById("selectUtensils");
-//
-// const setAttributes = (nameTag) => {
-//   const parentElement = nameTag.parentElement;
-//   const state = parentElement.getAttribute("isOpen");
-//
-//   parentElement.setAttribute("isOpen", (state === "false").toString());
-// };
-//
-// const addEventListenerToTag = (nameTag, tag, targetFunc, selectedItemsDiv, stateName) => {
-//   nameTag.addEventListener("click", () => {
-//     setAttributes(nameTag);
-//     updateTag(tag, targetFunc, "", selectedItemsDiv, stateName);
-//   });
-// };
-//
-// export const ingredientsFunc = (recipe) => {
-//   const ingredientsArr = [];
-//
-//   for (const item of recipe.ingredients) {
-//     ingredientsArr.push(item.ingredient);
-//   }
-//   return ingredientsArr;
-// };
-//
-// export const appliancesFunc = (recipe) => [recipe.appliance];
-//
-// export const utensilsFunc = (recipe) => {
-//   const utensilsArr = [];
-//
-//   for (let item of recipe.utensils) {
-//     item = item.charAt(0).toUpperCase() + item.slice(1);
-//     utensilsArr.push(item);
-//   }
-//   return utensilsArr;
-// };
-//
-// addEventListenerToTag(ingredientTag, ingredientTagDiv, ingredientsFunc, selectIngredientsDiv, "selectedIngredients");
-// addEventListenerToTag(appliancesTag, appliancesTagDiv, appliancesFunc, selectAppliancesDiv, "selectedAppliances");
-// addEventListenerToTag(utensilsTag, utensilsTagDiv, utensilsFunc, selectUtensilsDiv, "selectedUtensils");
-//
-// const stateClearIcon = (inputTag, clearIcon) => {
-//   const state = inputTag.value.length > 0;
-//   clearIcon.setAttribute("isClicked", state);
-// };
-//
-// const addEventListenerInputTag = (inputTag, tag, targetTagFunc, clearIcon, selectedItemsDiv, stateName) => {
-//   inputTag.addEventListener("input", (e) => {
-//     updateTag(tag, targetTagFunc, e.target.value, selectedItemsDiv, stateName);
-//     stateClearIcon(inputTag, clearIcon);
-//   });
-//
-//   clearIcon.addEventListener("click", () => {
-//     inputTag.value = "";
-//     updateTag(tag, targetTagFunc, inputTag.value, selectedItemsDiv, stateName);
-//     stateClearIcon(inputTag, clearIcon);
-//   });
-// };
-//
-// addEventListenerInputTag(inputIngredientTag, ingredientTagDiv, ingredientsFunc, clearIconIngredientsSearch,
-//   selectIngredientsDiv, "selectedIngredients");
-// addEventListenerInputTag(inputAppliancesTag, appliancesTagDiv, appliancesFunc, clearIconAppliancesSearch,
-//   selectAppliancesDiv, "selectedAppliances");
-// addEventListenerInputTag(inputUtensilsTag, utensilsTagDiv, utensilsFunc, clearIconUtensilsSearch, selectUtensilsDiv,
-//   "selectedUtensils");
+export const handleItemsSelection = (tagDivList, currentState, selectedDiv) => {
+  for (const item of tagDivList.children) {
+    item.addEventListener("click", () => {
+      currentState.push(item.textContent);
+      item.remove();
+      displaySelectedTagList(selectedDiv, currentState, tagDivList.parentElement.firstElementChild.id);
+    });
+  }
+};
