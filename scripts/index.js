@@ -2,12 +2,10 @@ import { handleItemsSelection } from "./selects/tagLists.js";
 import { Recipe } from "./templates/Recipe.js";
 import { recipes } from "../data/recipes.js";
 import {
-  appliancesTagDivList, ingredientsTagDivList, selectedAppliancesDiv,
+  appliancesTagDivList, ingredientsTagDivList, recipesNbr, recipesSection, selectedAppliancesDiv,
   selectedIngredientsDiv, selectedUtensilsDiv, utensilsTagDivList,
 } from "./utils/constantes.js";
 
-const recipesSection = document.getElementById("recipes");
-const recipesNbr = document.getElementById("recipesNumber");
 
 export const state = {
   filteredRecipes: [...recipes],
@@ -15,6 +13,7 @@ export const state = {
   selectedIngredients: [],
   selectedAppliances: [],
   selectedUtensils: [],
+  lastUserSearch: "",
 };
 
 export const displayRecipes = () => {

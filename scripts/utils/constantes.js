@@ -1,3 +1,6 @@
+export const recipesSection = document.getElementById("recipes");
+export const recipesNbr = document.getElementById("recipesNumber");
+
 export const ingredientsTagDivList = document.getElementById("ingredientsTagDiv");
 export const appliancesTagDivList = document.getElementById("appliancesTagDiv");
 export const utensilsTagDivList = document.getElementById("utensilsTagDiv");
