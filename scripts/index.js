@@ -32,6 +32,7 @@ export const displayTagList = () => {
   const itemTagList = new Set();
   const tagListId = state.currentTagListId;
   const userSearch = state.lastUserSearch;
+  let tagDivList;
 
   ingredientsTagDivList.innerHTML = "";
   appliancesTagDivList.innerHTML = "";
@@ -39,17 +40,27 @@ export const displayTagList = () => {
 
   for (const recipe of state.filteredRecipes) {
     if (tagListId === ingredientsTagListTitle) {
+      tagDivList = ingredientsTagDivList;
       for (const ingredient of recipe.ingredients) {
         const item = ingredient.ingredient.toLowerCase();
-        addInHTML(ingredientsTagDivList, item, itemTagList, userSearch, state.selectedIngredients);
+        addInSet(item, itemTagList, userSearch, state.selectedIngredients);
       }
     } else if (tagListId === appliancesTagListTitle) {
-      addInHTML(appliancesTagDivList, recipe.appliance, itemTagList, userSearch, state.selectedAppliances);
+      tagDivList = appliancesTagDivList;
+      addInSet(recipe.appliance, itemTagList, userSearch, state.selectedAppliances);
     } else if (tagListId === utensilsTagListTitle) {
+      tagDivList = utensilsTagDivList;
       for (const utensil of recipe.utensils) {
-        addInHTML(utensilsTagDivList, utensil, itemTagList, userSearch, state.selectedUtensils);
+        addInSet(utensil, itemTagList, userSearch, state.selectedUtensils);
       }
     }
+  }
+
+  const sortedDataTagList = [...itemTagList];
+  sortedDataTagList.sort();
+
+  for (const item of sortedDataTagList) {
+    tagDivList.innerHTML += `<p class="menu__selects__select__items__item">${item}</p>`;
   }
 
   if (tagListId === ingredientsTagListTitle) {
@@ -61,7 +72,7 @@ export const displayTagList = () => {
   }
 };
 
-const addInHTML = (tagDivList, item, setList, userSearch, selectedItems) => {
+const addInSet = (item, setList, userSearch, selectedItems) => {
   const itemName = item.charAt(0).toUpperCase() + item.slice(1);
 
   if (!item.toLowerCase().includes(userSearch)) {
@@ -72,10 +83,7 @@ const addInHTML = (tagDivList, item, setList, userSearch, selectedItems) => {
     return;
   }
 
-  if (!setList.has(item)) {
-    tagDivList.innerHTML += `<p class="menu__selects__select__items__item">${itemName}</p>`;
-    setList.add(item);
-  }
+  setList.add(itemName);
 };
 
 displayRecipes();
