@@ -1,11 +1,8 @@
-import { displayTagList, state } from "../index.js";
+import { displayRecipes, displayTagList, state } from "../index.js";
 import {
-  selectedIngredientsDiv,
-  selectedAppliancesDiv,
-  selectedUtensilsDiv,
-  recipesSection, recipesNbr,
+  selectedIngredientsDiv, selectedAppliancesDiv, selectedUtensilsDiv,
+  ingredientsTagListTitle, appliancesTagListTitle, utensilsTagListTitle,
 } from "../utils/constantes.js";
-import { Recipe } from "../templates/Recipe.js";
 
 const tagListsTitle = document.querySelectorAll(".menu__selects__select__title");
 
@@ -24,23 +21,16 @@ const onTagListsClick = (e) => {
   e.target.parentElement.setAttribute("isOpen", (isOpen === "false").toString());
   const inputElement = e.target.nextElementSibling.children[1];
 
+  state.lastUserSearch = "";
+
   if (isOpen === "false") {
     state.currentTagListId = e.target.id;
     inputElement.value = "";
     inputElement.nextElementSibling.style.display = "none"; // Hide cross
     inputElement.addEventListener("input", onInputChange);
     inputElement.nextElementSibling.addEventListener("click", onClearInput); // Add event on cross
-    displayTagList("");
-
-    if (state.currentTagListId === "ingredientsTagListTitle") {
-      displaySelectedTagList(selectedIngredientsDiv, state.selectedIngredients);
-
-    } else if (state.currentTagListId === "appliancesTagListTitle") {
-      displaySelectedTagList(selectedAppliancesDiv, state.selectedAppliances);
-
-    } else if (state.currentTagListId === "utensilsTagListTitle") {
-      displaySelectedTagList(selectedUtensilsDiv, state.selectedUtensils);
-    }
+    displayTagList();
+    displaySelectedTagList();
 
   } else {
     inputElement.removeEventListener("input", onInputChange);
@@ -55,16 +45,31 @@ tagListsTitle.forEach(tagListTitle => {
 const onInputChange = (e) => {
   e.target.nextElementSibling.style.display = e.target.value.length > 0 ? "block" : "none"; // Hide or Show cross
   state.lastUserSearch = e.target.value;
-  displayTagList(e.target.value);
+  displayTagList();
 };
 
 const onClearInput = (e) => {
   e.target.previousElementSibling.value = ""; // Clear input element
   e.target.style.display = "none"; // Hide cross
-  displayTagList("");
+  state.lastUserSearch = "";
+  displayTagList();
 };
 
-const displaySelectedTagList = (selectedDiv, currentState) => {
+const displaySelectedTagList = () => {
+  let selectedDiv;
+  let currentState;
+
+  if (state.currentTagListId === ingredientsTagListTitle) {
+    currentState = state.selectedIngredients;
+    selectedDiv = selectedIngredientsDiv;
+  } else if (state.currentTagListId === appliancesTagListTitle) {
+    currentState = state.selectedAppliances;
+    selectedDiv = selectedAppliancesDiv;
+  } else if (state.currentTagListId === utensilsTagListTitle) {
+    currentState = state.selectedUtensils;
+    selectedDiv = selectedUtensilsDiv;
+  }
+
   selectedDiv.innerHTML = ""; // Clear HTML to avoid double
 
   for (const item of currentState) {
@@ -72,11 +77,12 @@ const displaySelectedTagList = (selectedDiv, currentState) => {
   }
 
   selectedDiv.style.display = selectedDiv.children.length > 0 ? "block" : "none";
+  selectedDiv.nextElementSibling.style.maxHeight = selectedDiv.children.length > 0 ? "80px" : "185px";
 
-  displaySelectedItemInMenuDiv(selectedDiv);
+  displaySelectedItemInMenuDiv();
 };
 
-const displaySelectedItemInMenuDiv = (selectedDiv) => {
+export const displaySelectedItemInMenuDiv = () => {
   const selectedItemsDiv = document.getElementById("menuSelectedItemDiv");
 
   selectedItemsDiv.innerHTML = "";
@@ -109,33 +115,33 @@ const displaySelectedItemInMenuDiv = (selectedDiv) => {
       const elementIndex = elementState.indexOf(elementName);
 
       elementState.splice(elementIndex, 1);
-      displaySelectedTagList(selectedDiv, elementState);
-      element.remove();
-      displayTagList(state.lastUserSearch);
-      displayRecipesPerSelectedItems();
+      displaySelectedTagList();
+      updateRecipesPerSelectedItems();
+      displayTagList();
     });
   }
 };
 
-export const handleItemsSelection = (tagDivList, currentState, selectedDiv) => {
+export const handleItemsSelection = (tagDivList, currentState) => {
   for (const item of tagDivList.children) {
     item.addEventListener("click", () => {
       currentState.push(item.textContent);
-      item.remove();
-      displaySelectedTagList(selectedDiv, currentState);
-      displayRecipesPerSelectedItems();
+      updateRecipesPerSelectedItems();
+      displaySelectedTagList();
+      displayTagList();
     });
   }
 };
 
-const displayRecipesPerSelectedItems = () => {
-  recipesSection.innerHTML = "";
+const updateRecipesPerSelectedItems = () => {
+  state.filteredRecipes = [];
+
   let addRecipe = true;
 
-  for (const recipe of state.filteredRecipes) {
+  for (const recipe of state.searchedRecipes) {
     addRecipe = true;
-    const ingredients = recipe.ingredients.map(x => x.ingredient.toLowerCase());
 
+    const ingredients = recipe.ingredients.map(x => x.ingredient.toLowerCase());
     for (const selectedIngredient of state.selectedIngredients) {
       if (!ingredients.includes(selectedIngredient.toLowerCase())) {
         addRecipe = false;
@@ -166,9 +172,8 @@ const displayRecipesPerSelectedItems = () => {
       continue;
     }
 
-    const recipeModel = new Recipe(recipe);
-    recipesSection.innerHTML += recipeModel.getRecipesDOMPage();
-
+    state.filteredRecipes.push(recipe);
   }
-  recipesNbr.innerHTML = `${recipesSection.children.length} recettes`;
+
+  displayRecipes();
 };

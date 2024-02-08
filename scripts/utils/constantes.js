@@ -8,3 +8,7 @@ export const utensilsTagDivList = document.getElementById("utensilsTagDiv");
 export const selectedIngredientsDiv = document.getElementById("selectIngredients");
 export const selectedAppliancesDiv = document.getElementById("selectAppliances");
 export const selectedUtensilsDiv = document.getElementById("selectUtensils");
+
+export const ingredientsTagListTitle = "ingredientsTagListTitle";
+export const appliancesTagListTitle = "appliancesTagListTitle";
+export const utensilsTagListTitle = "utensilsTagListTitle";

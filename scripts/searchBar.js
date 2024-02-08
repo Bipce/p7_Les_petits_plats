@@ -1,5 +1,6 @@
 import { recipes } from "../data/recipes.js";
 import { displayRecipes, state } from "./index.js";
+import { displaySelectedItemInMenuDiv } from "./selects/tagLists.js";
 
 const searchBar = document.getElementById("searchbar");
 const tagsLists = document.querySelectorAll(".menu__selects__select");
@@ -22,10 +23,19 @@ const searchRecipes = (e) => {
     }
   }
 
+  state.searchedRecipes = [...state.filteredRecipes];
   displayRecipes();
 };
 
 searchBar.addEventListener("click", () => {
+  state.selectedIngredients = [];
+  state.selectedAppliances = [];
+  state.selectedUtensils = [];
+  state.filteredRecipes = [...recipes];
+  state.searchedRecipes = [...recipes];
+  displaySelectedItemInMenuDiv();
+  displayRecipes();
+
   tagsLists.forEach(tagList => {
     tagList.setAttribute("isOpen", "false");
     tagList.children[2].style.display = "none";
@@ -37,6 +47,7 @@ searchBar.addEventListener("input", (e) => {
     searchRecipes(e);
   } else {
     state.filteredRecipes = [...recipes];
+    state.searchedRecipes = [...recipes];
     displayRecipes();
   }
 });

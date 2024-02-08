@@ -2,8 +2,8 @@ import { handleItemsSelection } from "./selects/tagLists.js";
 import { Recipe } from "./templates/Recipe.js";
 import { recipes } from "../data/recipes.js";
 import {
-  appliancesTagDivList, ingredientsTagDivList, recipesNbr, recipesSection, selectedAppliancesDiv,
-  selectedIngredientsDiv, selectedUtensilsDiv, utensilsTagDivList,
+  appliancesTagDivList, appliancesTagListTitle, ingredientsTagDivList, ingredientsTagListTitle,
+  recipesNbr, recipesSection, utensilsTagDivList, utensilsTagListTitle,
 } from "./utils/constantes.js";
 
 
@@ -14,6 +14,7 @@ export const state = {
   selectedAppliances: [],
   selectedUtensils: [],
   lastUserSearch: "",
+  searchedRecipes: [...recipes],
 };
 
 export const displayRecipes = () => {
@@ -27,39 +28,36 @@ export const displayRecipes = () => {
   recipesNbr.innerHTML = `${state.filteredRecipes.length} recettes`;
 };
 
-export const displayTagList = (userSearch) => {
+export const displayTagList = () => {
   const itemTagList = new Set();
   const tagListId = state.currentTagListId;
+  const userSearch = state.lastUserSearch;
 
   ingredientsTagDivList.innerHTML = "";
   appliancesTagDivList.innerHTML = "";
   utensilsTagDivList.innerHTML = "";
 
   for (const recipe of state.filteredRecipes) {
-    if (tagListId === "ingredientsTagListTitle") {
+    if (tagListId === ingredientsTagListTitle) {
       for (const ingredient of recipe.ingredients) {
         const item = ingredient.ingredient.toLowerCase();
         addInHTML(ingredientsTagDivList, item, itemTagList, userSearch, state.selectedIngredients);
       }
-
-    } else if (tagListId === "appliancesTagListTitle") {
+    } else if (tagListId === appliancesTagListTitle) {
       addInHTML(appliancesTagDivList, recipe.appliance, itemTagList, userSearch, state.selectedAppliances);
-
-    } else if (tagListId === "utensilsTagListTitle") {
+    } else if (tagListId === utensilsTagListTitle) {
       for (const utensil of recipe.utensils) {
         addInHTML(utensilsTagDivList, utensil, itemTagList, userSearch, state.selectedUtensils);
       }
     }
   }
 
-  if (tagListId === "ingredientsTagListTitle") {
-    handleItemsSelection(ingredientsTagDivList, state.selectedIngredients, selectedIngredientsDiv);
-
-  } else if (tagListId === "appliancesTagListTitle") {
-    handleItemsSelection(appliancesTagDivList, state.selectedAppliances, selectedAppliancesDiv);
-
-  } else if (tagListId === "utensilsTagListTitle") {
-    handleItemsSelection(utensilsTagDivList, state.selectedUtensils, selectedUtensilsDiv);
+  if (tagListId === ingredientsTagListTitle) {
+    handleItemsSelection(ingredientsTagDivList, state.selectedIngredients);
+  } else if (tagListId === appliancesTagListTitle) {
+    handleItemsSelection(appliancesTagDivList, state.selectedAppliances);
+  } else if (tagListId === utensilsTagListTitle) {
+    handleItemsSelection(utensilsTagDivList, state.selectedUtensils);
   }
 };
 
