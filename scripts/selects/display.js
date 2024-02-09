@@ -1,73 +1,26 @@
 import { displayRecipes, displayTagList, state } from "../index.js";
 import {
-  selectedIngredientsDiv, selectedAppliancesDiv, selectedUtensilsDiv,
-  ingredientsTagListTitle, appliancesTagListTitle, utensilsTagListTitle,
+  appliancesTagListTitle, ingredientsTagListTitle, selectedAppliancesDiv,
+  selectedIngredientsDiv, selectedUtensilsDiv, utensilsTagListTitle,
 } from "../utils/constantes.js";
 
-const tagListsTitle = document.querySelectorAll(".menu__selects__select__title");
-
-const onTagListsClick = (e) => {
-  tagListsTitle.forEach(x => {
-    if (x.parentElement.getAttribute("isOpen") === "true") {
-      x.nextElementSibling.nextElementSibling.style.display = "none";
-    }
-
-    if (x.parentElement !== e.target.parentElement) {
-      x.parentElement.setAttribute("isOpen", "false");
-    }
-  });
-
-  const isOpen = e.target.parentElement.getAttribute("isOpen");
-  e.target.parentElement.setAttribute("isOpen", (isOpen === "false").toString());
-  const inputElement = e.target.nextElementSibling.children[1];
-
-  state.lastUserSearch = "";
-
-  if (isOpen === "false") {
-    state.currentTagListId = e.target.id;
-    inputElement.value = "";
-    inputElement.nextElementSibling.style.display = "none"; // Hide cross
-    inputElement.addEventListener("input", onInputChange);
-    inputElement.nextElementSibling.addEventListener("click", onClearInput); // Add event on cross
-    displayTagList();
-    displaySelectedTagList();
-
-  } else {
-    inputElement.removeEventListener("input", onInputChange);
-    inputElement.nextElementSibling.removeEventListener("click", onClearInput); // Remove cross event
-  }
-};
-
-tagListsTitle.forEach(tagListTitle => {
-  tagListTitle.addEventListener("click", onTagListsClick);
-});
-
-const onInputChange = (e) => {
-  e.target.nextElementSibling.style.display = e.target.value.length > 0 ? "block" : "none"; // Hide or Show cross
-  state.lastUserSearch = e.target.value;
-  displayTagList();
-};
-
-const onClearInput = (e) => {
-  e.target.previousElementSibling.value = ""; // Clear input element
-  e.target.style.display = "none"; // Hide cross
-  state.lastUserSearch = "";
-  displayTagList();
-};
-
-const displaySelectedTagList = () => {
+export const displaySelectedTagList = () => {
   let selectedDiv;
   let currentState;
 
-  if (state.currentTagListId === ingredientsTagListTitle) {
-    currentState = state.selectedIngredients;
-    selectedDiv = selectedIngredientsDiv;
-  } else if (state.currentTagListId === appliancesTagListTitle) {
-    currentState = state.selectedAppliances;
-    selectedDiv = selectedAppliancesDiv;
-  } else if (state.currentTagListId === utensilsTagListTitle) {
-    currentState = state.selectedUtensils;
-    selectedDiv = selectedUtensilsDiv;
+  switch (state.currentTagListId) {
+    case ingredientsTagListTitle:
+      currentState = state.selectedIngredients;
+      selectedDiv = selectedIngredientsDiv;
+      break;
+    case appliancesTagListTitle:
+      currentState = state.selectedAppliances;
+      selectedDiv = selectedAppliancesDiv;
+      break;
+    case utensilsTagListTitle:
+      currentState = state.selectedUtensils;
+      selectedDiv = selectedUtensilsDiv;
+      break;
   }
 
   selectedDiv.innerHTML = ""; // Clear HTML to avoid double
@@ -88,13 +41,13 @@ export const displaySelectedItemInMenuDiv = () => {
   selectedItemsDiv.innerHTML = "";
 
   const addInDivHTML = (item, type) => {
+
     selectedItemsDiv.innerHTML += `<div class="menu__selectedItems__item" type="${type}">
                                        <p>${item}</p>
                                        <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
                                      </div>`;
 
   };
-
   for (const ingredient of state.selectedIngredients) {
     addInDivHTML(ingredient, "selectedIngredients");
   }
@@ -106,6 +59,7 @@ export const displaySelectedItemInMenuDiv = () => {
   for (const utensil of state.selectedUtensils) {
     addInDivHTML(utensil, "selectedUtensils");
   }
+
 
   for (const element of selectedItemsDiv.children) {
     element.addEventListener("click", () => {
@@ -122,19 +76,8 @@ export const displaySelectedItemInMenuDiv = () => {
   }
 };
 
-export const handleItemsSelection = (tagDivList, currentState) => {
-  for (const item of tagDivList.children) {
-    item.addEventListener("click", () => {
-      currentState.push(item.textContent);
-      updateRecipesPerSelectedItems();
-      displaySelectedTagList();
-      displayTagList();
-    });
-  }
-};
-
-const updateRecipesPerSelectedItems = () => {
-  state.filteredRecipes = [];
+export const updateRecipesPerSelectedItems = () => {
+  state.currentRecipes = [];
 
   let addRecipe = true;
 
@@ -171,8 +114,7 @@ const updateRecipesPerSelectedItems = () => {
     if (!addRecipe) {
       continue;
     }
-
-    state.filteredRecipes.push(recipe);
+    state.currentRecipes.push(recipe);
   }
 
   displayRecipes();

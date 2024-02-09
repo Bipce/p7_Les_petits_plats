@@ -9,7 +9,7 @@
 
 .recipes__article {
     max-width: 380px;
-    background-color: #fff;
+    background-color: var(--bg-color-white);
     border-radius: 21px;
     height: 731px;
     position: relative;

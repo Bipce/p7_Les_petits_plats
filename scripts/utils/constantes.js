@@ -1,13 +1,13 @@
-export const recipesSection = document.getElementById("recipes");
-export const recipesNbr = document.getElementById("recipesNumber");
+export const recipesSection = document.querySelector("#recipes");
+export const recipesNbr = document.querySelector("#recipesNumber");
 
-export const ingredientsTagDivList = document.getElementById("ingredientsTagDiv");
-export const appliancesTagDivList = document.getElementById("appliancesTagDiv");
-export const utensilsTagDivList = document.getElementById("utensilsTagDiv");
+export const ingredientsTagDivList = document.querySelector("#ingredientsTagDiv");
+export const appliancesTagDivList = document.querySelector("#appliancesTagDiv");
+export const utensilsTagDivList = document.querySelector("#utensilsTagDiv");
 
-export const selectedIngredientsDiv = document.getElementById("selectIngredients");
-export const selectedAppliancesDiv = document.getElementById("selectAppliances");
-export const selectedUtensilsDiv = document.getElementById("selectUtensils");
+export const selectedIngredientsDiv = document.querySelector("#selectIngredients");
+export const selectedAppliancesDiv = document.querySelector("#selectAppliances");
+export const selectedUtensilsDiv = document.querySelector("#selectUtensils");
 
 export const ingredientsTagListTitle = "ingredientsTagListTitle";
 export const appliancesTagListTitle = "appliancesTagListTitle";
