@@ -19,6 +19,7 @@ const searchRecipes = (e) => {
     for (const ingredient of recipes[i].ingredients) {
       if (ingredient.ingredient.toLowerCase().includes(userSearch)) {
         state.currentRecipes.push(recipes[i]);
+        break;
       }
     }
   }
