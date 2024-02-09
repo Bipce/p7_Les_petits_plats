@@ -12,7 +12,7 @@ export const state = {
   selectedIngredients: [],
   selectedAppliances: [],
   selectedUtensils: [],
-  lastUserSearch: "",
+  tagListUserSearch: "",
   searchedRecipes: [...recipes],
 };
 
@@ -30,7 +30,7 @@ export const displayRecipes = () => {
 export const displayTagList = () => {
   const itemTagList = new Set();
   const tagListId = state.currentTagListId;
-  const userSearch = state.lastUserSearch;
+  const userSearch = state.tagListUserSearch;
   let tagDivList;
 
   ingredientsTagDivList.innerHTML = "";

@@ -7,21 +7,12 @@ const tagsLists = document.querySelectorAll(".menu__selects__select");
 
 const searchRecipes = (e) => {
   const userSearch = e.target.value.toLowerCase();
-  state.currentRecipes = [];
 
-  for (let i = 0; i < recipes.length; i++) {
-    if (recipes[i].name.toLowerCase().includes(userSearch)
-      || recipes[i].description.toLowerCase().includes(userSearch)) {
-      state.currentRecipes.push(recipes[i]);
-      continue;
-    }
-
-    for (const ingredient of recipes[i].ingredients) {
-      if (ingredient.ingredient.toLowerCase().includes(userSearch)) {
-        state.currentRecipes.push(recipes[i]);
-      }
-    }
-  }
+  state.currentRecipes = recipes.filter(recipe =>
+    recipe.name.toLowerCase().includes(userSearch) ||
+    recipe.description.toLowerCase().includes(userSearch) ||
+    recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(userSearch)),
+  );
 
   state.searchedRecipes = [...state.currentRecipes];
   displayRecipes();

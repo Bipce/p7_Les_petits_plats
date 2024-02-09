@@ -19,7 +19,7 @@ const onTagListsClick = (e) => {
   e.target.parentElement.setAttribute("isOpen", (isOpen === "false").toString());
   const inputElement = e.target.nextElementSibling.children[1];
 
-  state.lastUserSearch = "";
+  state.tagListUserSearch = "";
 
   if (isOpen === "false") {
     state.currentTagListId = e.target.id;
