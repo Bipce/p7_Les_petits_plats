@@ -30,7 +30,7 @@
 
 .header__content__searchbar__box,
 .header__content__searchbar__box__searchbar {
-    background-color: #fff;
+    background-color: var(--bg-color-white);
 }
 
 .header__content__searchbar__box__searchbar {

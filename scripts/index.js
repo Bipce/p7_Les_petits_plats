@@ -1,191 +1,91 @@
+import { handleItemsSelection } from "./selects/tagListsClickEvent.js";
 import { Recipe } from "./templates/Recipe.js";
 import { recipes } from "../data/recipes.js";
-import { appliancesFunc, ingredientsFunc, utensilsFunc } from "./tags.js";
-
-const recipesSection = document.getElementById("recipes");
-const recipesNbr = document.getElementById("recipesNumber");
+import {
+  appliancesTagDivList, appliancesTagListTitle, ingredientsTagDivList, ingredientsTagListTitle,
+  recipesNbr, recipesSection, utensilsTagDivList, utensilsTagListTitle,
+} from "./utils/constantes.js";
 
 export const state = {
-  filteredRecipes: [...recipes],
+  currentRecipes: [...recipes],
+  currentTagListId: "",
   selectedIngredients: [],
   selectedAppliances: [],
   selectedUtensils: [],
+  lastUserSearch: "",
   searchedRecipes: [...recipes],
 };
 
 export const displayRecipes = () => {
   recipesSection.innerHTML = "";
 
-  for (const recipe of state.filteredRecipes) {
+  for (const recipe of state.currentRecipes) {
     const recipeModel = new Recipe(recipe);
     recipesSection.innerHTML += recipeModel.getRecipesDOMPage();
   }
 
-  recipesNbr.innerHTML = `${state.filteredRecipes.length} recettes`;
+  recipesNbr.innerHTML = `${state.currentRecipes.length} recettes`;
 };
 
-export const displayTag = (tag, tagData, selectedItemsDiv, stateName) => {
-  const sortedTagData = [...tagData];
+export const displayTagList = () => {
+  const itemTagList = new Set();
+  const tagListId = state.currentTagListId;
+  const userSearch = state.lastUserSearch;
+  let tagDivList;
 
-  tag.innerHTML = "";
-  selectedItemsDiv.innerHTML = "";
+  ingredientsTagDivList.innerHTML = "";
+  appliancesTagDivList.innerHTML = "";
+  utensilsTagDivList.innerHTML = "";
 
-  sortedTagData.sort();
-
-  for (const item of sortedTagData) {
-    const display = item.charAt(0).toUpperCase() + item.slice(1);
-    if (state[stateName].includes(display)) {
-      selectedItemsDiv.innerHTML += `<p class="menu__selects__select__items__item" isSelected="true">${display}</p>`;
-    } else {
-      tag.innerHTML += `<p class="menu__selects__select__items__item" isSelected="false">${display}</p>`;
-    }
-  }
-
-  selectedItemsDiv.style.display = selectedItemsDiv.children.length === 0 ? "none" : "block";
-
-  if (tag.parentElement.getAttribute("isOpen") === "true" && selectedItemsDiv.children.length > 0) {
-    selectedItemsDiv.style.display = "block";
-  } else {
-    selectedItemsDiv.style.display = "none";
-  }
-
-  const eventToSelectedItemTag = (e) => {
-    selectItemTag(e.target, tag, sortedTagData, selectedItemsDiv, stateName);
-  };
-
-  const items = document.querySelectorAll(".menu__selects__select__items__item");
-  items.forEach(item => item.addEventListener("click", eventToSelectedItemTag));
-};
-
-const selectItemTag = (item, tag, sortedTagData, selectedItemsDiv, stateName) => {
-  const isSelected = item.getAttribute("isSelected");
-  const selectedItems = state[stateName];
-
-  if (isSelected === "false") {
-    item.setAttribute("isSelected", "true");
-    selectedItems.push(item.textContent);
-  } else {
-    item.setAttribute("isSelected", "false");
-    selectedItems.splice(selectedItems.indexOf(item.textContent), 1);
-  }
-
-  updateRecipesWithTag();
-  displayTag(tag, sortedTagData, selectedItemsDiv, stateName);
-  // displaySelectedItemsDiv(tag, sortedTagData, selectedItemsDiv, stateName);
-  displaySelectedItemsDiv(item, stateName);
-};
-
-const updateRecipesWithTag = () => {
-  let canAddRecipe = true;
-  state.filteredRecipes = [];
-
-  for (const recipe of state.searchedRecipes) {
-    canAddRecipe = true;
-
-    const ingredients = ingredientsFunc(recipe);
-    for (const selectedIngredient of state.selectedIngredients) {
-      if (!ingredients.includes(selectedIngredient)) {
-        canAddRecipe = false;
+  for (const recipe of state.currentRecipes) {
+    switch (tagListId) {
+      case ingredientsTagListTitle :
+        tagDivList = ingredientsTagDivList;
+        for (const ingredient of recipe.ingredients) {
+          const item = ingredient.ingredient.toLowerCase();
+          addInSet(item, itemTagList, userSearch, state.selectedIngredients);
+        }
         break;
-      }
-    }
-
-    const appliances = appliancesFunc(recipe);
-    for (const selectedAppliance of state.selectedAppliances) {
-      if (!appliances.includes(selectedAppliance)) {
-        canAddRecipe = false;
+      case appliancesTagListTitle:
+        tagDivList = appliancesTagDivList;
+        addInSet(recipe.appliance, itemTagList, userSearch, state.selectedAppliances);
         break;
-      }
-    }
-
-    const utensils = utensilsFunc(recipe);
-    for (const selectedUtensil of state.selectedUtensils) {
-      if (!utensils.includes(selectedUtensil)) {
-        canAddRecipe = false;
+      case utensilsTagListTitle:
+        tagDivList = utensilsTagDivList;
+        for (const utensil of recipe.utensils) {
+          addInSet(utensil, itemTagList, userSearch, state.selectedUtensils);
+        }
         break;
-      }
-    }
-
-    if (canAddRecipe) {
-      state.filteredRecipes.push(recipe);
     }
   }
-  displayRecipes();
-};
 
-export const updateTag = (tag, targetTagFunc, userSearch, selectedItemsDiv, stateName) => {
-  const tagData = new Set();
+  const sortedDataTagList = [...itemTagList];
+  sortedDataTagList.sort();
 
-  for (const recipe of state.filteredRecipes) {
-    const tagsArray = targetTagFunc(recipe);
-    for (const item of tagsArray) {
-      const itemLowerCase = item.toLowerCase();
-      if (itemLowerCase.includes(userSearch)) {
-        tagData.add(itemLowerCase);
-      }
-    }
+  for (const item of sortedDataTagList) {
+    tagDivList.innerHTML += `<p class="menu__selects__select__items__item">${item}</p>`;
   }
-  displayTag(tag, tagData, selectedItemsDiv, stateName);
+
+  switch (tagListId) {
+    case ingredientsTagListTitle:
+      handleItemsSelection(ingredientsTagDivList, state.selectedIngredients);
+      break;
+    case appliancesTagListTitle:
+      handleItemsSelection(appliancesTagDivList, state.selectedAppliances);
+      break;
+    case utensilsTagListTitle:
+      handleItemsSelection(utensilsTagDivList, state.selectedUtensils);
+  }
 };
 
-// const displaySelectedItemsDiv = (tag, sortedTagData, selectedItemsDiv, stateName) => {
-const div = document.getElementById("menuSelectedItemDiv");
-const displaySelectedItemsDiv = (item, stateName) => {
-  const itemContent = `<div class="menu__selectedItems__item">
-                          <p>${item.textContent}</p>
-                          <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
-                        </div>`;
+const addInSet = (item, setList, userSearch, selectedItems) => {
+  const itemName = item.charAt(0).toUpperCase() + item.slice(1);
 
-  // div.innerHTML = "";
+  if (!item.toLowerCase().includes(userSearch) || selectedItems.includes(itemName)) {
+    return;
+  }
 
-  // div.innerHTML += `<span class="menu__selectedItems__item">
-  //                       <p>${item.textContent}</p>
-  //                       <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
-  //                     </span>`;
-
-  div.insertAdjacentHTML("beforeend", itemContent);
-
-  // const element = div.querySelectorAll(".menu__selectedItems__item");
-  div.lastElementChild.addEventListener("click", (e) => {
-    console.log(e.target);
-    console.log(stateName);
-  });
-
-  // for (const selectedIngredient of state.selectedIngredients) {
-  //   div.innerHTML += `<span class="menu__selectedItems__item">
-  //                       <p>${selectedIngredient}</p>
-  //                       <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
-  //                     </span>`;
-  //
-  // }
-  //
-  // for (const selectedAppliance of state.selectedAppliances) {
-  //   div.innerHTML += `<span class="menu__selectedItems__item">
-  //                       <p>${selectedAppliance}</p>
-  //                       <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
-  //                     </span>`;
-  // }
-  //
-  // for (const selectedUtensil of state.selectedUtensils) {
-  //   div.innerHTML += `<span class="menu__selectedItems__item">
-  //                       <p>${selectedUtensil}</p>
-  //                       <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
-  //                     </span>`;
-  // }
-
-  // const selectedElements = document.querySelectorAll(".menu__selectedItems__item");
-  // selectedElements.forEach(selectedElement => selectedElement.addEventListener("click", () => {
-  //   state.selectedIngredients.splice(state.selectedIngredients.indexOf(selectedElement.children[0].textContent), 1);
-  //   state.selectedAppliances.splice(state.selectedAppliances.indexOf(selectedElement.children[0].textContent), 1);
-  //   state.selectedUtensils.splice(state.selectedUtensils.indexOf(selectedElement.children[0].textContent), 1);
-  //
-  //   // const test = state[stateName];
-  //   // test.splice(test.indexOf(selectedElement.children[0].textContent), 1);
-  //
-  //   updateRecipesWithTag();
-  //   displayTag(tag, sortedTagData, selectedItemsDiv, stateName);
-  //   displaySelectedItemsDiv(tag, sortedTagData, selectedItemsDiv, stateName);
-  // }));
+  setList.add(itemName);
 };
 
 displayRecipes();

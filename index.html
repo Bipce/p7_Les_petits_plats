@@ -18,7 +18,7 @@
     <p class="header__content__text">Cherchez parmi plus de 1500 recettes du quotidien, simples, et délicieuses</p>
 
     <div class="header__content__searchbar__box">
-      <label for="searchbar"></label>
+      <label for="searchbar">Searchbar</label>
       <input type="text" class="header__content__searchbar__box__searchbar" name="searchbar" id="searchbar"
              placeholder="Rechercher une recette, un ingrédient, ..."
       >
@@ -33,11 +33,11 @@
     <div class="menu-top">
       <div class="menu__selects">
         <div class="menu__selects__select" isOpen="false">
-          <h2 class="menu__selects__select__title" id="ingredientsTagTitle">Ingrédients
+          <h2 class="menu__selects__select__title" id="ingredientsTagListTitle">Ingrédients
             <img class="menu__selects__select__title__icon" src="assets/icons/tag__icon.png" alt="Ouvrir liste">
           </h2>
           <div class="menu__selects__select__input">
-            <label for="ingredientsInput"></label>
+            <label for="ingredientsInput">Ingredients searchbar</label>
             <input type="text" name="ingredients" id="ingredientsInput" class="menu__selects__select__input__search">
             <img src="assets/icons/closeIcon.png" alt="Supprimer la recherche" id="clearUserIngredientsSearch"
                  class="menu__selects__select__input__search__clearIcon" isClicked="false">
@@ -49,11 +49,11 @@
         </div>
 
         <div class="menu__selects__select" isOpen="false">
-          <h2 class="menu__selects__select__title" id="appliancesTagTitle">Appareils
+          <h2 class="menu__selects__select__title" id="appliancesTagListTitle">Appareils
             <img class="menu__selects__select__title__icon" src="assets/icons/tag__icon.png" alt="Ouvrir liste">
           </h2>
           <div class="menu__selects__select__input">
-            <label for="appliancesInput"></label>
+            <label for="appliancesInput">Appliances searchbar</label>
             <input type="text" name="appliances" id="appliancesInput" class="menu__selects__select__input__search">
             <img src="assets/icons/closeIcon.png" alt="Supprimer la recherche" id="clearUserAppliancesSearch"
                  class="menu__selects__select__input__search__clearIcon">
@@ -65,12 +65,12 @@
         </div>
 
         <div class="menu__selects__select" isOpen="false">
-          <h2 class="menu__selects__select__title" id="utensilsTagTitle">Ustensiles
+          <h2 class="menu__selects__select__title" id="utensilsTagListTitle">Ustensiles
             <img class="menu__selects__select__title__icon" src="assets/icons/tag__icon.png" alt="Ouvrir liste">
           </h2>
 
           <div class="menu__selects__select__input">
-            <label for="utensilsInput"></label>
+            <label for="utensilsInput">Utensils searchbar</label>
             <input type="text" name="utensils" id="utensilsInput" class="menu__selects__select__input__search">
             <img src="assets/icons/closeIcon.png" alt="Supprimer la recherche" id="clearUserUtensilsSearch"
                  class="menu__selects__select__input__search__clearIcon">
@@ -93,8 +93,13 @@
 </main>
 
 <script src="scripts/templates/Recipe.js" type="module"></script>
+<script src="scripts/utils/constantes.js" type="module"></script>
 <script src="scripts/searchBar.js" type="module"></script>
-<script src="scripts/tags.js" type="module"></script>
+
+<script src="scripts/selects/tagListsClickEvent.js" type="module"></script>
+<script src="scripts/selects/input.js" type="module"></script>
+<script src="scripts/selects/display.js" type="module"></script>
+
 <script src="scripts/index.js" type="module"></script>
 </body>
 </html>
