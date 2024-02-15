@@ -6,12 +6,9 @@
 :root {
     --primary-color: #FFD15B;
     --secondary-color: #1B1B1B;
-    /*--secondary-color: #bbbbbb;*/
     --tertiary-color: #7A7A7A;
     --bg-color: #EDEDED;
-    /*--bg-color: #0e0e0e;*/
     --bg-color-white: #fff;
-    /*--bg-color-white: #313131;*/
 
     --fz16px: 1rem;
     --fz18px: 1.125rem;
@@ -58,4 +55,5 @@ img {
 
 .main-wrapper {
     padding-inline: 5rem;
+    padding-bottom: 1.5rem;
 }
