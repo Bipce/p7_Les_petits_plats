@@ -80,3 +80,9 @@
     font-size: .875rem;
     color: var(--tertiary-color);
 }
+
+.recipes__errMsg {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-inline: auto;
+}

@@ -1,6 +1,7 @@
 import { recipes } from "../data/recipes.js";
 import { displayRecipes, state } from "./index.js";
 import { displaySelectedItemInMenuDiv } from "./selects/display.js";
+import { recipesSection } from "./utils/constantes.js";
 
 const searchBar = document.getElementById("searchbar");
 const tagsLists = document.querySelectorAll(".menu__selects__select");
@@ -26,6 +27,9 @@ const searchRecipes = (e) => {
 
   state.searchedRecipes = [...state.currentRecipes];
   displayRecipes();
+  if (recipesSection.children.length === 0) {
+    recipesSection.innerHTML = `<p class="recipes__errMsg">Aucune recette ne contient "${userSearch}"</p>`;
+  }
 };
 
 searchBar.addEventListener("click", () => {
