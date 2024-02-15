@@ -29,7 +29,8 @@ export const displaySelectedTagList = () => {
     selectedDiv.innerHTML += `<p class="menu__selects__select__items__item">${item}</p>`;
   }
 
-  selectedDiv.style.display = selectedDiv.children.length > 0 ? "block" : "none";
+  selectedDiv.style.display = selectedDiv.children.length === 0 ||
+  selectedDiv.parentElement.getAttribute("isOpen") === "false" ? "none" : "block";
   selectedDiv.nextElementSibling.style.maxHeight = selectedDiv.children.length > 0 ? "80px" : "185px";
 
   displaySelectedItemInMenuDiv();
