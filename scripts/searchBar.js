@@ -37,6 +37,7 @@ searchBar.addEventListener("click", () => {
   state.searchedRecipes = [...recipes];
   displaySelectedItemInMenuDiv();
   displayRecipes();
+  searchBar.value = "";
 
   // Close every tagList
   tagsLists.forEach(tagList => {
