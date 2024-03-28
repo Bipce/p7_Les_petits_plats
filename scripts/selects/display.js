@@ -4,10 +4,14 @@ import {
   selectedIngredientsDiv, selectedUtensilsDiv, utensilsTagListTitle,
 } from "../utils/constantes.js";
 
+/**
+ * Display the selected tag list when an item has been selected
+ */
 export const displaySelectedTagList = () => {
   let selectedDiv;
   let currentState;
 
+  // First set currentState and the selectedDiv to the right ones
   switch (state.currentTagListId) {
     case ingredientsTagListTitle:
       currentState = state.selectedIngredients;
@@ -25,6 +29,7 @@ export const displaySelectedTagList = () => {
 
   selectedDiv.innerHTML = ""; // Clear HTML to avoid double
 
+  // Second add item in HTML
   for (const item of currentState) {
     selectedDiv.innerHTML += `<p class="menu__selects__select__items__item">${item}</p>`;
   }
@@ -36,19 +41,27 @@ export const displaySelectedTagList = () => {
   displaySelectedItemInMenuDiv();
 };
 
+/**
+ * Display selected items in Div below the lists
+ */
 export const displaySelectedItemInMenuDiv = () => {
   const selectedItemsDiv = document.getElementById("menuSelectedItemDiv");
 
   selectedItemsDiv.innerHTML = "";
 
+  /**
+   * Add item in HTML
+   * @param {string} item
+   * @param {string} type
+   */
   const addInDivHTML = (item, type) => {
-
     selectedItemsDiv.innerHTML += `<div class="menu__selectedItems__item" type="${type}">
-                                       <p>${item}</p>
-                                       <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
-                                     </div>`;
+                                     <p>${item}</p>
+                                     <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
+                                   </div>`;
 
   };
+
   for (const ingredient of state.selectedIngredients) {
     addInDivHTML(ingredient, "selectedIngredients");
   }
@@ -61,7 +74,7 @@ export const displaySelectedItemInMenuDiv = () => {
     addInDivHTML(utensil, "selectedUtensils");
   }
 
-
+  // Display tag list and update recipes when item is deleted
   for (const element of selectedItemsDiv.children) {
     element.addEventListener("click", () => {
       const elementName = element.firstElementChild.textContent;
@@ -77,6 +90,9 @@ export const displaySelectedItemInMenuDiv = () => {
   }
 };
 
+/**
+ * Update recipes when select item
+ */
 export const updateRecipesPerSelectedItems = () => {
   state.currentRecipes = [];
 
@@ -115,6 +131,7 @@ export const updateRecipesPerSelectedItems = () => {
     if (!addRecipe) {
       continue;
     }
+
     state.currentRecipes.push(recipe);
   }
 

@@ -16,6 +16,9 @@ export const state = {
   searchedRecipes: [...recipes],
 };
 
+/**
+ * Display the currents recipes
+ */
 export const displayRecipes = () => {
   recipesSection.innerHTML = "";
 
@@ -27,6 +30,9 @@ export const displayRecipes = () => {
   recipesNbr.innerHTML = `${state.currentRecipes.length} recettes`;
 };
 
+/**
+ * Display the items in the lists and add them in HTML.
+ */
 export const displayTagList = () => {
   const itemTagList = new Set();
   const tagListId = state.currentTagListId;
@@ -78,6 +84,13 @@ export const displayTagList = () => {
   }
 };
 
+/**
+ * Put first letter in uppercase to the item nane and add it to the Set
+ * @param {string} item
+ * @param {Set} setList
+ * @param {string} userSearch
+ * @param {[]} selectedItems
+ */
 const addInSet = (item, setList, userSearch, selectedItems) => {
   const itemName = item.charAt(0).toUpperCase() + item.slice(1);
 

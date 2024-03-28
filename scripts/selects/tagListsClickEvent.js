@@ -4,6 +4,10 @@ import { displaySelectedTagList, updateRecipesPerSelectedItems } from "./display
 
 const tagListsTitle = document.querySelectorAll(".menu__selects__select__title");
 
+/**
+ * Open or close the tag lists when clicked
+ * @param {MouseEvent} e
+ */
 const onTagListsClick = (e) => {
   tagListsTitle.forEach(x => {
     if (x.parentElement.getAttribute("isOpen") === "true") {
@@ -36,6 +40,12 @@ tagListsTitle.forEach(tagListTitle => {
   tagListTitle.addEventListener("click", onTagListsClick);
 });
 
+/**
+ * Handle the selection of the item in the list
+ * Update the recipes when item is selected and deselected, display the selected tag list and the tag list
+ * @param {Element} tagDivList
+ * @param {[]} currentState
+ */
 export const handleItemsSelection = (tagDivList, currentState) => {
   for (const item of tagDivList.children) {
     item.addEventListener("click", () => {
