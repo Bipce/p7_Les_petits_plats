@@ -6,6 +6,11 @@ import { recipesSection } from "./utils/constantes.js";
 const searchBar = document.getElementById("searchbar");
 const tagsLists = document.querySelectorAll(".menu__selects__select");
 
+/**
+ * Global search for the recipes
+ * @param {Event} e
+ * @return {string}
+ */
 const searchRecipes = (e) => {
   const userSearch = e.target.value.toLowerCase();
 
@@ -15,8 +20,10 @@ const searchRecipes = (e) => {
     recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(userSearch)),
   );
 
+  // Set "state.searchRecipes" to a copy of "state.currentsRecipes" to avoid doing do the all process of the global search again.
   state.searchedRecipes = [...state.currentRecipes];
   displayRecipes();
+
   if (recipesSection.children.length === 0) {
     recipesSection.innerHTML = `<p class="recipes__errMsg">Aucune recette ne contient "${userSearch}"</p>`;
   }

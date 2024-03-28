@@ -11,6 +11,10 @@ export class Recipe {
     this.utensils = data.utensils;
   }
 
+  /**
+   * Return HTML article for one recipe
+   * @returns {string}
+   */
   getRecipesDOMPage() {
     let ingredients = "";
 
@@ -43,13 +47,16 @@ export class Recipe {
     `);
   }
 
+  /**
+   * Return HTML div ingredients for one recipe's ingredients
+   * @param {{}} ingredient
+   * @returns {string}
+   */
   getIngredientRecipeDOMPage(ingredient) {
     let data = "";
 
     data += ingredient.quantity ? `<p>${ingredient.quantity}</p>` : "";
-
     data += ingredient.unit ? `<p>${ingredient.unit}</p>` : "";
-    
     data += !ingredient.quantity && !ingredient.unit ? `<p>-</p>` : "";
 
     return (`
