@@ -3,7 +3,7 @@ import { displayRecipes, state } from "./index.js";
 import { displaySelectedItemInMenuDiv } from "./selects/display.js";
 import { recipesSection } from "./utils/constantes.js";
 
-const searchBar = document.getElementById("searchbar");
+const searchBar = document.querySelector("#searchbar");
 const tagsLists = document.querySelectorAll(".menu__selects__select");
 
 /**

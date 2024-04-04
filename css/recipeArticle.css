@@ -56,8 +56,8 @@
     overflow: scroll;
     display: -webkit-box;
     -webkit-line-clamp: 4;
-    line-clamp: 4;
     -webkit-box-orient: vertical;
+    max-height: calc(304px * 4);
 }
 
 .recipes__article__content__ingredients {
