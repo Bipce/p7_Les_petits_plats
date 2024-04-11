@@ -10,22 +10,23 @@ const tagListsTitle = document.querySelectorAll(".menu__selects__select__title")
  */
 const onTagListsClick = (e) => {
   tagListsTitle.forEach(x => {
-    if (x.parentElement.getAttribute("isOpen") === "true") {
+    if (x.parentElement.getAttribute("data-isOpen") === "true") {
       x.nextElementSibling.nextElementSibling.style.display = "none";
     }
 
     if (x.parentElement !== e.target.parentElement) {
-      x.parentElement.setAttribute("isOpen", "false");
+      x.parentElement.setAttribute("data-isOpen", "false");
     }
   });
 
-  const isOpen = e.target.parentElement.getAttribute("isOpen");
-  e.target.parentElement.setAttribute("isOpen", (isOpen === "false").toString());
+  const dataIsOpen = e.target.parentElement.getAttribute("data-isOpen");
+  e.target.parentElement.setAttribute("data-isOpen", (dataIsOpen === "false").toString());
+
   const inputElement = e.target.nextElementSibling.children[1];
 
   state.tagListUserSearch = "";
 
-  if (isOpen === "false") {
+  if (dataIsOpen === "false") {
     state.currentTagListId = e.target.id;
     inputElement.value = "";
     inputElement.nextElementSibling.style.display = "none"; // Hide cross

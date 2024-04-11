@@ -40,19 +40,21 @@ const searchRecipes = (e) => {
 };
 
 searchBar.addEventListener("click", () => {
-  // Reset recipes
-  state.selectedIngredients = [];
-  state.selectedAppliances = [];
-  state.selectedUtensils = [];
-  state.currentRecipes = [...recipes];
-  state.searchedRecipes = [...recipes];
-  displaySelectedItemInMenuDiv();
-  displayRecipes();
-  searchBar.value = "";
+  if ((state.selectedIngredients.length || state.selectedAppliances || state.selectedUtensils) > 0) {
+    // Reset recipes
+    state.selectedIngredients = [];
+    state.selectedAppliances = [];
+    state.selectedUtensils = [];
+    state.currentRecipes = [...recipes];
+    state.searchedRecipes = [...recipes];
+    searchBar.value = "";
+    displayRecipes();
+  }
 
+  displaySelectedItemInMenuDiv();
   // Close every tagList
   tagsLists.forEach(tagList => {
-    tagList.setAttribute("isOpen", "false");
+    tagList.setAttribute("data-isOpen", "false");
     tagList.children[2].style.display = "none";
   });
 });
@@ -61,6 +63,7 @@ searchBar.addEventListener("input", (e) => {
   if (e.target.value.length > 2) {
     searchRecipes(e);
   } else {
+    // Display all recipes if not 3 letters
     state.currentRecipes = [...recipes];
     state.searchedRecipes = [...recipes];
     displayRecipes();
