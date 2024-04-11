@@ -35,7 +35,7 @@ export const displaySelectedTagList = () => {
   }
 
   selectedDiv.style.display = selectedDiv.children.length === 0 ||
-  selectedDiv.parentElement.getAttribute("isOpen") === "false" ? "none" : "block";
+  selectedDiv.parentElement.getAttribute("data-IsOpen") === "false" ? "none" : "block";
   selectedDiv.nextElementSibling.style.maxHeight = selectedDiv.children.length > 0 ? "80px" : "185px";
 
   displaySelectedItemInMenuDiv();
@@ -55,7 +55,7 @@ export const displaySelectedItemInMenuDiv = () => {
    * @param {string} type
    */
   const addInDivHTML = (item, type) => {
-    selectedItemsDiv.innerHTML += `<div class="menu__selectedItems__item" type="${type}">
+    selectedItemsDiv.innerHTML += `<div class="menu__selectedItems__item" data-type="${type}">
                                      <p>${item}</p>
                                      <i class="fa-solid fa-xmark menu__selectedItems__icon"></i>
                                    </div>`;
@@ -78,7 +78,7 @@ export const displaySelectedItemInMenuDiv = () => {
   for (const element of selectedItemsDiv.children) {
     element.addEventListener("click", () => {
       const elementName = element.firstElementChild.textContent;
-      const elementType = element.getAttribute("type");
+      const elementType = element.getAttribute("data-type");
       const elementState = state[elementType];
       const elementIndex = elementState.indexOf(elementName);
 
