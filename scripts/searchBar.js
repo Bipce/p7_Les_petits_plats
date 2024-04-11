@@ -40,7 +40,7 @@ const searchRecipes = (e) => {
 };
 
 searchBar.addEventListener("click", () => {
-  if ((state.selectedIngredients.length || state.selectedAppliances || state.selectedUtensils) > 0) {
+  if ((state.selectedIngredients.length || state.selectedAppliances.length || state.selectedUtensils.length) > 0) {
     // Reset recipes
     state.selectedIngredients = [];
     state.selectedAppliances = [];
