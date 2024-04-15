@@ -36,7 +36,7 @@ const searchRecipes = (e) => {
 
   if (recipesSection.children.length === 0) {
     recipesSection.innerHTML = `<p class="recipes__errMsg">Aucune recette ne contient "${userSearch}", vous pouvez chercher «
-tarte aux pommes », « poisson », etc.</p>`;
+                                                           tarte aux pommes », « poisson », etc.</p>`;
   }
 };
 
